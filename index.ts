@@ -72,9 +72,9 @@ app.post("/webhook", function (request, response, next) {
         }
         else {
             agent.add("Please select the Subject in which you want to give quiz")
-            agent.add(new Suggestion(`Basic room`));
-            agent.add(new Suggestion(`Standard room`));
-            agent.add(new Suggestion(`VIP room`));
+            agent.add(new Suggestion(`G-K`));
+            agent.add(new Suggestion(`Science`));
+            agent.add(new Suggestion(`History`));
         }
         agent.setContext({
             name: "abc",
