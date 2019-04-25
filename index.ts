@@ -127,6 +127,13 @@ app.post("/webhook", function (request, response, next) {
                     console.log("Error is : ", err)
                 })
             }
+            else if (ourContext.parameters.Subject === "History") {
+                await model1.find({}).then(data => {
+                    agent.add(`${data[2].Question[i]}`)
+                }).catch(err => {
+                    console.log("Error is : ", err)
+                })
+            }
         }
 
         else if (opt && !ourContext.parameters.opt1) {
@@ -170,7 +177,21 @@ app.post("/webhook", function (request, response, next) {
                     console.log("Error is : ", err)
                 })
             }
-
+            else if (ourContext.parameters.Subject === "History") {
+                await model1.find({}).then(data => {
+                    agent.add(`You said option ${opt}, Here is your next question.${data[2].Question[i1]}`)
+                    agent.setContext({
+                        name: "abc",
+                        lifespan: 5,
+                        "parameters": {
+                            "opt1": opt, i1,
+                            score1
+                        }
+                    });
+                }).catch(err => {
+                    console.log("Error is : ", err)
+                })
+            }
         }
 
         else if (ourContext.parameters.opt1 && !ourContext.parameters.opt2) {
@@ -216,7 +237,21 @@ app.post("/webhook", function (request, response, next) {
                     console.log("Error is : ", err)
                 })
             }
-
+            else if (ourContext.parameters.Subject === "History") {
+                await model1.find({}).then(data => {
+                    agent.add(`You said opt ${opt} . Here is your next question.${data[2].Question[i2]} `)
+                    agent.setContext({
+                        name: "abc",
+                        lifespan: 5,
+                        "parameters": {
+                            "opt2": opt, i2,
+                            score2
+                        }
+                    })
+                }).catch(err => {
+                    console.log("Error is : ", err)
+                })
+            }
         }
 
         else if (ourContext.parameters.opt2 && !ourContext.parameters.opt3) {
@@ -249,6 +284,21 @@ app.post("/webhook", function (request, response, next) {
             else if (ourContext.parameters.Subject === "Science") {
                 await model1.find({}).then(data => {
                     agent.add(`You said opt ${opt}. Here is your next question.${data[1].Question[i3]} `)
+                    agent.setContext({
+                        name: "abc",
+                        lifespan: 5,
+                        "parameters": {
+                            "opt3": opt, i3,
+                            score3
+                        }
+                    })
+                }).catch(err => {
+                    console.log("Error is : ", err)
+                })
+            }
+            else if (ourContext.parameters.Subject === "History") {
+                await model1.find({}).then(data => {
+                    agent.add(`You said opt ${opt}. Here is your next question.${data[2].Question[i3]} `)
                     agent.setContext({
                         name: "abc",
                         lifespan: 5,
