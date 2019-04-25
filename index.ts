@@ -8,6 +8,7 @@ require("dotenv").config()
 const mongoose = require("mongoose");
 const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
 
+//connection with mongodb
 mongoose.connect(dburi, { useNewUrlParser: true }).catch(err => {
     console.log("error occured", err);
 });
@@ -24,7 +25,7 @@ mongoose.connection.on("disconnected", () => {
     console.log("Disconnected with database.");
     process.exit(1);
 });
-
+//making schema for user's data
 var userDetail = new mongoose.Schema(
     {
         Name: { type: String, required: true },
@@ -36,6 +37,7 @@ var userDetail = new mongoose.Schema(
 );
 var model = new mongoose.model("userData", userDetail);
 
+//making schema for collection already exist in db
 var userDetail1 = new mongoose.Schema(
     {
         Question: { type: [String], required: true },
@@ -43,11 +45,7 @@ var userDetail1 = new mongoose.Schema(
     { collection: "Questions" }
 );
 var model1 = new mongoose.model("Questions", userDetail1);
-model1.find({}).then(data => {
-    console.log("data is : ", data[0].Question)
-}).catch(err => {
-    console.log("Error is : ", err)
-})
+
 app.post("/webhook", function (request, response, next) {
     const _agent = new WebhookClient({ request, response });
 
@@ -78,7 +76,7 @@ app.post("/webhook", function (request, response, next) {
             name: "abc",
             lifespan: 5,
             "parameters": {
-                "Name": name,
+                "Name": name,       //setting name and other params in context for use later in code
                 "ID_No": idNo,
                 "Email": email
             }
@@ -87,8 +85,8 @@ app.post("/webhook", function (request, response, next) {
     }
 
     function startQuiz(agent) {
-        agent.setFollowupEvent("question")
-        agent.add("hi twilio")
+        agent.setFollowupEvent("question") //webhook call for this intent redirect to ques
+        agent.add("hi from twilio")
         return
     }
 
@@ -97,8 +95,8 @@ app.post("/webhook", function (request, response, next) {
         var score = 0;
         var increment = 1;
         var i = 0;
-        var i2; var i3; var i4; var i5; var i6;
-        var i1; var i7; var i8; var i9; var i10;
+        var i1; var i2; var i3; var i4; var i5; var i6; //differnt variables to store in context
+        var i7; var i8; var i9;
         var score1; var score2; var score3; var score4; var score5;
         var score6; var score7; var score8; var score9; var score10;
         const opt = agent.parameters['option'];
