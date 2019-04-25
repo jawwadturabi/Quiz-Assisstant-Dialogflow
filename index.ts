@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { WebhookClient } = require('dialogflow-fulfillment');
+const { Card, Suggestion } = require("dialogflow-fulfillment");
 const app = express().use(bodyParser.json());
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
@@ -70,7 +71,10 @@ app.post("/webhook", function (request, response, next) {
             agent.add("Kindly tell me your email address")
         }
         else {
-            agent.add("Say start quiz when you are ready to start quiz")
+            agent.add("Please select the Subject in which you want to give quiz")
+            agent.add(new Suggestion(`Basic room`));
+            agent.add(new Suggestion(`Standard room`));
+            agent.add(new Suggestion(`VIP room`));
         }
         agent.setContext({
             name: "abc",
