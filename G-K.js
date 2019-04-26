@@ -3,7 +3,7 @@ const { Card, Suggestion } = require("dialogflow-fulfillment");
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 
-exports.gk= () =>{
+exports.gk= async() =>{
 if (!opt && !ask) {
     console.log("ques 1 triggered")
     console.log("context are : ", ourContext)
