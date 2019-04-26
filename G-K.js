@@ -1,8 +1,27 @@
-const { WebhookClient } = require('dialogflow-fulfillment');
-const { Card, Suggestion } = require("dialogflow-fulfillment");
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
+const mongoose = require("mongoose");
+// const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
 
+var userDetail = new mongoose.Schema(
+    {
+        Name: { type: String, required: true },
+        Email: { type: String, required: true },
+        ID: { type: String, required: true },
+        Total_Score: { type: String, required: true },
+    },
+    { collection: "userData" }
+);
+var model = new mongoose.model("userData", userDetail);
+
+//making schema for collection already exist in db
+var userDetail1 = new mongoose.Schema(
+    {
+        Question: { type: [String], required: true },
+    },
+    { collection: "Questions" }
+);
+var model1 = new mongoose.model("Questions", userDetail1);
 exports.gk = async (agent) => {
     var ourContext = agent.getContext("abc")
     var score = 0;
