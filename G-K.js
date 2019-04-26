@@ -3,7 +3,7 @@ const { Card, Suggestion } = require("dialogflow-fulfillment");
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 
-exports.gk = async () => {
+exports.gk = async (agent) => {
     var ourContext = agent.getContext("abc")
     var score = 0;
     var increment = 1;
