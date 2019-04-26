@@ -5,7 +5,6 @@ const Model = require("./schema.js").model
 const Model1 = require("./schema.js").model1
 
 exports.gk = async (agent) => {
-    console.log("model is", Model)
     var ourContext = agent.getContext("abc")
     var score = 0;
     var increment = 1;
