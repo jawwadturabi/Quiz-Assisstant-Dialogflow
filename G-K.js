@@ -2,26 +2,7 @@ var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 const mongoose = require("mongoose");
 // const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
-
-var userDetail = new mongoose.Schema(
-    {
-        Name: { type: String, required: true },
-        Email: { type: String, required: true },
-        ID: { type: String, required: true },
-        Total_Score: { type: String, required: true },
-    },
-    { collection: "userData" }
-);
-var model = new mongoose.model("userData", userDetail);
-
-//making schema for collection already exist in db
-var userDetail1 = new mongoose.Schema(
-    {
-        Question: { type: [String], required: true },
-    },
-    { collection: "Questions" }
-);
-var model1 = new mongoose.model("Questions", userDetail1);
+const Model = require("./index")
 exports.gk = async (agent) => {
     var ourContext = agent.getContext("abc")
     var score = 0;
@@ -36,7 +17,7 @@ exports.gk = async (agent) => {
     if (!opt && !ask) {
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
-        await model1.find({}).then(data => {
+        await Model.model1.find({}).then(data => {
             agent.add(`${data[0].Question[i]}`)
         }).catch(err => {
             console.log("Error is : ", err)
@@ -296,7 +277,7 @@ exports.gk = async (agent) => {
             Total_Score: score10
         }
 
-        var saveData = new model(info);
+        var saveData = new Model.model(info);
         saveData.save((err, mydata) => {
             if (err) {
                 console.log("error is:", err);
