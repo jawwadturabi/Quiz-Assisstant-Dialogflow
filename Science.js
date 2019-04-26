@@ -1,6 +1,8 @@
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 // const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
+const Model = require("./schema.js").model
+const Model1 = require("./schema.js").model1
 exports.science = async (agent) => {
     var ourContext = agent.getContext("abc")
     var score = 0;
@@ -15,7 +17,7 @@ exports.science = async (agent) => {
     if (!opt && !ask) {
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`${data[1].Question[i]}`)
         }).catch(err => {
             console.log("Error is : ", err)
@@ -33,7 +35,7 @@ exports.science = async (agent) => {
         else {
             score1 = score
         }
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You saRoll_No option ${opt}, Here is your next question.${data[1].Question[i1]}`)
             agent.setContext({
                 name: "abc",
@@ -60,7 +62,7 @@ exports.science = async (agent) => {
         else {
             score2 = ourContext.parameters.score1
         }
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt} . Here is your next question.${data[1].Question[i2]} `)
             agent.setContext({
                 name: "abc",
@@ -87,7 +89,7 @@ exports.science = async (agent) => {
         else {
             score3 = ourContext.parameters.score2
         }
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}. Here is your next question.${data[1].Question[i3]} `)
             agent.setContext({
                 name: "abc",
@@ -114,7 +116,7 @@ exports.science = async (agent) => {
         else {
             score4 = ourContext.parameters.score3
         }
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i4]} `)
             agent.setContext({
                 name: "abc",
@@ -140,7 +142,7 @@ exports.science = async (agent) => {
         else {
             score5 = ourContext.parameters.score4
         }
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i5]}`)
             agent.setContext({
                 name: "abc",
@@ -166,7 +168,7 @@ exports.science = async (agent) => {
         else {
             score6 = ourContext.parameters.score5
         }
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i6]}`)
             agent.setContext({
                 name: "abc",
@@ -192,7 +194,7 @@ exports.science = async (agent) => {
         else {
             score7 = ourContext.parameters.score6
         }
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i7]}`)
             agent.setContext({
                 name: "abc",
@@ -218,7 +220,7 @@ exports.science = async (agent) => {
         else {
             score8 = ourContext.parameters.score7
         }
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said option ${opt}.Here is your next question.${data[1].Question[i8]} `)
             agent.setContext({
                 name: "abc",
@@ -244,7 +246,7 @@ exports.science = async (agent) => {
         else {
             score9 = ourContext.parameters.score8
         }
-        await model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said option ${opt}.Here is your next question.${data[1].Question[i9]}`)
             agent.setContext({
                 name: "abc",
@@ -274,7 +276,7 @@ exports.science = async (agent) => {
             Total_Score_in_Science: score10
         }
 
-        var saveData = new model(info);
+        var saveData = new Model(info);
         saveData.save((err, mydata) => {
             if (err) {
                 console.log("error is:", err);
