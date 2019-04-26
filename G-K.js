@@ -275,7 +275,7 @@ exports.gk = async (agent) => {
             Name: name,
             Email: ourContext.parameters.Email,
             Roll_No: ourContext.parameters.Roll_No,
-            Total_Score_GK: score10
+            Total_Score_in_GK: score10
         }
 
         var saveData = new Model(info);
