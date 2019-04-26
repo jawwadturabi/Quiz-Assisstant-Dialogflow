@@ -102,19 +102,10 @@ app.post("/webhook", function (request, response, next) {
 
     async function question(agent) {
         var ourContext = agent.getContext("abc")
-        var score = 0;
-        var increment = 1;
-        var i = 0;
-        var i1; var i2; var i3; var i4; var i5; var i6; //differnt variables to store in context
-        var i7; var i8; var i9;
-        var score1; var score2; var score3; var score4; var score5;
-        var score6; var score7; var score8; var score9; var score10;
-        const opt = agent.parameters['option'];
-        const ask = agent.parameters['ask'];
-        if (ourContext.parameters.Subject === "G-K"){
-                G_K.gk()
+        if (ourContext.parameters.Subject === "G-K") {
+            G_K.gk()
         }
-            return
+        return
 
     }
 
