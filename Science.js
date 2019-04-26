@@ -6,9 +6,8 @@ const mongoose = require("mongoose");
 var userDetail = new mongoose.Schema(
     {
         Name: { type: String, required: true },
-        Email: { type: String, required: true },
-        ID: { type: String, required: true },
-        Total_Score: { type: String, required: true },
+        Roll_No: { type: String, required: true },
+        Total_Score_in_Science: { type: String, required: true },
     },
     { collection: "userData" }
 );
@@ -22,7 +21,7 @@ var userDetail1 = new mongoose.Schema(
     { collection: "Questions" }
 );
 var model1 = new mongoose.model("Questions", userDetail1);
-exports.gk = async (agent) => {
+exports.science = async (agent) => {
     var ourContext = agent.getContext("abc")
     var score = 0;
     var increment = 1;
@@ -37,7 +36,7 @@ exports.gk = async (agent) => {
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
         await model1.find({}).then(data => {
-            agent.add(`${data[0].Question[i]}`)
+            agent.add(`${data[1].Question[i]}`)
         }).catch(err => {
             console.log("Error is : ", err)
         })
@@ -55,7 +54,7 @@ exports.gk = async (agent) => {
             score1 = score
         }
         await model1.find({}).then(data => {
-            agent.add(`You said option ${opt}, Here is your next question.${data[0].Question[i1]}`)
+            agent.add(`You saRoll_No option ${opt}, Here is your next question.${data[1].Question[i1]}`)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -82,7 +81,7 @@ exports.gk = async (agent) => {
             score2 = ourContext.parameters.score1
         }
         await model1.find({}).then(data => {
-            agent.add(`You said opt ${opt} . Here is your next question.${data[0].Question[i2]} `)
+            agent.add(`You said opt ${opt} . Here is your next question.${data[1].Question[i2]} `)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -109,7 +108,7 @@ exports.gk = async (agent) => {
             score3 = ourContext.parameters.score2
         }
         await model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}. Here is your next question.${data[0].Question[i3]} `)
+            agent.add(`You said opt ${opt}. Here is your next question.${data[1].Question[i3]} `)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -136,7 +135,7 @@ exports.gk = async (agent) => {
             score4 = ourContext.parameters.score3
         }
         await model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}.Here is your next question.${data[0].Question[i4]} `)
+            agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i4]} `)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -162,7 +161,7 @@ exports.gk = async (agent) => {
             score5 = ourContext.parameters.score4
         }
         await model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}.Here is your next question.${data[0].Question[i5]}`)
+            agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i5]}`)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -188,7 +187,7 @@ exports.gk = async (agent) => {
             score6 = ourContext.parameters.score5
         }
         await model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}.Here is your next question.${data[0].Question[i6]}`)
+            agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i6]}`)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -214,7 +213,7 @@ exports.gk = async (agent) => {
             score7 = ourContext.parameters.score6
         }
         await model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}.Here is your next question.${data[0].Question[i7]}`)
+            agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i7]}`)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -240,7 +239,7 @@ exports.gk = async (agent) => {
             score8 = ourContext.parameters.score7
         }
         await model1.find({}).then(data => {
-            agent.add(`You said option ${opt}.Here is your next question.${data[0].Question[i8]} `)
+            agent.add(`You said option ${opt}.Here is your next question.${data[1].Question[i8]} `)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -266,7 +265,7 @@ exports.gk = async (agent) => {
             score9 = ourContext.parameters.score8
         }
         await model1.find({}).then(data => {
-            agent.add(`You said option ${opt}.Here is your next question.${data[0].Question[i9]}`)
+            agent.add(`You said option ${opt}.Here is your next question.${data[1].Question[i9]}`)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -291,9 +290,8 @@ exports.gk = async (agent) => {
         }
         var info = {
             Name: name,
-            Email: ourContext.parameters.Email,
-            ID: ourContext.parameters.Roll_No,
-            Total_Score: score10
+            Roll_No: ourContext.parameters.Roll_No,
+            Total_Score_in_Science: score10
         }
 
         var saveData = new model(info);

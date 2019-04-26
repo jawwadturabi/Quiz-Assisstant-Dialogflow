@@ -9,7 +9,8 @@ require("dotenv").config()
 const mongoose = require("mongoose");
 const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
 const G_K = require("./G-K")
-
+const Science = require("./Science")
+const hist = require("./History")
 //connection with mongodb
 mongoose.connect(dburi, { useNewUrlParser: true }).catch(err => {
     console.log("error occured", err);
@@ -66,7 +67,7 @@ app.post("/webhook", function (request, response, next) {
             lifespan: 5,
             "parameters": {
                 "Name": name,       //setting name and other params in context for use later in code
-                "ID_No": idNo,
+                "Roll_No": idNo,
                 "Email": email,
                 "Subject": quizType
             }
@@ -84,6 +85,12 @@ app.post("/webhook", function (request, response, next) {
         var ourContext = agent.getContext("abc")
         if (ourContext.parameters.Subject === "G-K") {
           await  G_K.gk(agent)
+        }
+        else if(ourContext.parameters.Subject === "Science"){
+            await  Science.science(agent)
+        }
+        else if(ourContext.parameters.Subject === "History"){
+            await  hist.history(agent)
         }
         return
 
