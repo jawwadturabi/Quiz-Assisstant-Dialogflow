@@ -37,8 +37,6 @@ var userDetail = new mongoose.Schema(
     { collection: "userData" }
 );
 var model =  new mongoose.model("userData", userDetail);
-module.exports.model
-
 //making schema for collection already exist in db
 var userDetail1 = new mongoose.Schema(
     {
@@ -47,7 +45,10 @@ var userDetail1 = new mongoose.Schema(
     { collection: "Questions" }
 );
 var model1 = new mongoose.model("Questions", userDetail1);
-module.exports.model1
+module.exports ={
+    model:model,
+    model1:model1
+}
 
 app.post("/webhook", function (request, response, next) {
     const _agent = new WebhookClient({ request, response });
