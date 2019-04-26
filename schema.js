@@ -8,7 +8,7 @@ var userDetail = new mongoose.Schema(
     },
     { collection: "userData" }
 );
-var modelGk = new mongoose.model("userData", userDetail);
+var modelGk = new mongoose.model("G-K", userDetail,"userData");
 //////////
 var userDetail2 = new mongoose.Schema(
     {
@@ -18,7 +18,7 @@ var userDetail2 = new mongoose.Schema(
     },
     { collection: "userData" }
 );
-var modelSci = new mongoose.model("userData", userDetail2);
+var modelSci = new mongoose.model("Science", userDetail2, "userData");
 ///////////
 var userDetail3 = new mongoose.Schema(
     {
@@ -28,7 +28,7 @@ var userDetail3 = new mongoose.Schema(
     },
     { collection: "userData" }
 );
-var modelHis = new mongoose.model("userData", userDetail3);
+var modelHis = new mongoose.model("History", userDetail3,"userData");
 //making schema for collection already exist in db
 var userDetail1 = new mongoose.Schema(
     {
@@ -36,7 +36,7 @@ var userDetail1 = new mongoose.Schema(
     },
     { collection: "Questions" }
 );
-var model1 = new mongoose.model("Questions", userDetail1);
+var model1 = new mongoose.model("Questions", userDetail1, );
 ////////////
 module.exports = {
     modelSci: modelSci,
