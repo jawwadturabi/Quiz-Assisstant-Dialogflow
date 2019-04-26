@@ -19,7 +19,7 @@ exports.gk = async (agent) => {
     if (!opt && !ask) {
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
-        await Model1.model1.find({}).then(data => {
+        await Model.find({}).then(data => {
             agent.add(`${data[0].Question[i]}`)
         }).catch(err => {
             console.log("Error is : ", err)
