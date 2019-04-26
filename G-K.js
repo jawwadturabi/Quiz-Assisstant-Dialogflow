@@ -1,9 +1,10 @@
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 // const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
-const Model = require("./index.ts")
+const Model = require("./index.js")
 
 exports.gk = async (agent) => {
+    console.log("model is", Model)
     var ourContext = agent.getContext("abc")
     var score = 0;
     var increment = 1;
