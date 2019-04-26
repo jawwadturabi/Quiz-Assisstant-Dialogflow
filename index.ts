@@ -83,7 +83,7 @@ app.post("/webhook", function (request, response, next) {
     async function question(agent) {
         var ourContext = agent.getContext("abc")
         if (ourContext.parameters.Subject === "G-K") {
-            G_K.gk(agent)
+          await  G_K.gk(agent)
         }
         return
 
