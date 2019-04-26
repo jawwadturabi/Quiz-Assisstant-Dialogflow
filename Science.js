@@ -1,7 +1,7 @@
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 // const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
-const Model = require("./schema.js").model
+const Model = require("./schema.js").modelSci
 const Model1 = require("./schema.js").model1
 exports.science = async (agent) => {
     var ourContext = agent.getContext("abc")
@@ -15,7 +15,7 @@ exports.science = async (agent) => {
     const opt = agent.parameters['option'];
     const ask = agent.parameters['ask'];
     if (!opt && !ask) {
-        
+
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
         await Model1.find({}).then(data => {

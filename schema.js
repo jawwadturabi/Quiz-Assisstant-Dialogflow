@@ -1,6 +1,26 @@
 const mongoose = require("mongoose");
-
+////////
 var userDetail = new mongoose.Schema(
+    {
+        Name: { type: String, required: true },
+        Roll_No: { type: String, required: true },
+        Total_Score_in_GK: { type: String, required: true },
+    },
+    { collection: "userData" }
+);
+var modelGk = new mongoose.model("userData", userDetail);
+//////////
+var userDetail2 = new mongoose.Schema(
+    {
+        Name: { type: String, required: true },
+        Roll_No: { type: String, required: true },
+        Total_Score_in_Science: { type: String, required: true },
+    },
+    { collection: "userData" }
+);
+var modelSci = new mongoose.model("userData", userDetail2);
+///////////
+var userDetail3 = new mongoose.Schema(
     {
         Name: { type: String, required: true },
         Roll_No: { type: String, required: true },
@@ -8,7 +28,7 @@ var userDetail = new mongoose.Schema(
     },
     { collection: "userData" }
 );
-var model =  new mongoose.model("userData", userDetail);
+var modelHis = new mongoose.model("userData", userDetail3);
 //making schema for collection already exist in db
 var userDetail1 = new mongoose.Schema(
     {
@@ -17,7 +37,10 @@ var userDetail1 = new mongoose.Schema(
     { collection: "Questions" }
 );
 var model1 = new mongoose.model("Questions", userDetail1);
-module.exports ={
-    model:model,
-    model1:model1
+////////////
+module.exports = {
+    modelSci: modelSci,
+    modelHis: modelHis,
+    modelGk: modelGk,
+    model1: model1
 }
