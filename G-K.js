@@ -278,7 +278,7 @@ exports.gk = async (agent) => {
             Total_Score: score10
         }
 
-        var saveData = new Model.model(info);
+        var saveData = new Model(info);
         saveData.save((err, mydata) => {
             if (err) {
                 console.log("error is:", err);

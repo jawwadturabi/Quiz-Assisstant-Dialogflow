@@ -15,6 +15,7 @@ exports.science = async (agent) => {
     const opt = agent.parameters['option'];
     const ask = agent.parameters['ask'];
     if (!opt && !ask) {
+        
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
         await Model1.find({}).then(data => {
