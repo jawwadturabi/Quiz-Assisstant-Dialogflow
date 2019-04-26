@@ -27,26 +27,6 @@ mongoose.connection.on("disconnected", () => {
     console.log("Disconnected with database.");
     process.exit(1);
 });
-//making schema for user's data
-var userDetail = new mongoose.Schema(
-    {
-        Name: { type: String, required: true },
-        Email: { type: String, required: true },
-        ID: { type: String, required: true },
-        Total_Score: { type: String, required: true },
-    },
-    { collection: "userData" }
-);
-var model = new mongoose.model("userData", userDetail);
-
-//making schema for collection already exist in db
-var userDetail1 = new mongoose.Schema(
-    {
-        Question: { type: [String], required: true },
-    },
-    { collection: "Questions" }
-);
-var model1 = new mongoose.model("Questions", userDetail1);
 
 app.post("/webhook", function (request, response, next) {
     const _agent = new WebhookClient({ request, response });
