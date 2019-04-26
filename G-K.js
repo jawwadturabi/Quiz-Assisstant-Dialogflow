@@ -1,8 +1,8 @@
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 // const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
-const Model = require("./index.js").model
-const Model1 = require("./index.js").model1
+const Model = require("./schema,js").model
+const Model1 = require("./schema.js").model1
 
 exports.gk = async (agent) => {
     console.log("model is", Model)
