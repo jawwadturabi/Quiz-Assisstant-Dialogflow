@@ -19,7 +19,7 @@ exports.gk = async (agent) => {
     if (!opt && !ask) {
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
-        await Model.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`${data[0].Question[i]}`)
         }).catch(err => {
             console.log("Error is : ", err)
@@ -37,7 +37,7 @@ exports.gk = async (agent) => {
         else {
             score1 = score
         }
-        await Model1.model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said option ${opt}, Here is your next question.${data[0].Question[i1]}`)
             agent.setContext({
                 name: "abc",
@@ -64,7 +64,7 @@ exports.gk = async (agent) => {
         else {
             score2 = ourContext.parameters.score1
         }
-        await Model1.model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt} . Here is your next question.${data[0].Question[i2]} `)
             agent.setContext({
                 name: "abc",
@@ -91,7 +91,7 @@ exports.gk = async (agent) => {
         else {
             score3 = ourContext.parameters.score2
         }
-        await Model1.model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}. Here is your next question.${data[0].Question[i3]} `)
             agent.setContext({
                 name: "abc",
@@ -118,7 +118,7 @@ exports.gk = async (agent) => {
         else {
             score4 = ourContext.parameters.score3
         }
-        await Model1.model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}.Here is your next question.${data[0].Question[i4]} `)
             agent.setContext({
                 name: "abc",
@@ -144,7 +144,7 @@ exports.gk = async (agent) => {
         else {
             score5 = ourContext.parameters.score4
         }
-        await Model1.model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}.Here is your next question.${data[0].Question[i5]}`)
             agent.setContext({
                 name: "abc",
@@ -170,7 +170,7 @@ exports.gk = async (agent) => {
         else {
             score6 = ourContext.parameters.score5
         }
-        await Model1.model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}.Here is your next question.${data[0].Question[i6]}`)
             agent.setContext({
                 name: "abc",
@@ -196,7 +196,7 @@ exports.gk = async (agent) => {
         else {
             score7 = ourContext.parameters.score6
         }
-        await Model1.model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said opt ${opt}.Here is your next question.${data[0].Question[i7]}`)
             agent.setContext({
                 name: "abc",
@@ -222,7 +222,7 @@ exports.gk = async (agent) => {
         else {
             score8 = ourContext.parameters.score7
         }
-        await Model1.model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said option ${opt}.Here is your next question.${data[0].Question[i8]} `)
             agent.setContext({
                 name: "abc",
@@ -248,7 +248,7 @@ exports.gk = async (agent) => {
         else {
             score9 = ourContext.parameters.score8
         }
-        await Model1.model1.find({}).then(data => {
+        await Model1.find({}).then(data => {
             agent.add(`You said option ${opt}.Here is your next question.${data[0].Question[i9]}`)
             agent.setContext({
                 name: "abc",
