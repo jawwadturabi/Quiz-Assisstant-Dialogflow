@@ -279,7 +279,7 @@ exports.gk = async (agent) => {
                 Model.findOneAndUpdate({ Roll_No: ourContext.parameters.Roll_No }, { Total_Score_in_GK: score10 }, (err, data) => {
                     if(err) throw err
                     else{
-                    console.log("data is",data)
+                    console.log("Updated data is",data)
                     }
                 })
             }
@@ -291,6 +291,8 @@ exports.gk = async (agent) => {
                     Total_Score_in_GK: score10
                 }
             }
+        }).catch(err=>{
+            console.log("error is : ",err)
         })
 
         var saveData = new Model(info);
@@ -299,7 +301,7 @@ exports.gk = async (agent) => {
                 console.log("error is:", err);
             }
             else {
-                console.log("data is : ", mydata)
+                console.log("Save data is : ", mydata)
                 return
             }
         });
