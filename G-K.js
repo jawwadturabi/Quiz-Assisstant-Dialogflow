@@ -265,18 +265,30 @@ exports.gk = async (agent) => {
     else if (ourContext.parameters.opt9 && !ourContext.parameters.opt10) {
         console.log("context are : ", ourContext)
         var name = ourContext.parameters.Name
+        var info;
+        var id;
         if (opt === "1" && !ourContext.parameters.opt10) {
             score10 = ourContext.parameters.score9 + increment
         }
         else {
             score10 = ourContext.parameters.score9
         }
-        var info = {
+        Model.find({}).then(data =>{
+            console.log("data is", data) 
+            if(data.filter((val)=>val.Roll_No === ourContext.parameters.Roll_No).length
+             && data.filter((val)=>val.Total_Score_in_GK === ourContext.parameters.Total_Score_in_GK).length  ){
+                Model.findByIdAndUpdate(id, {Total_Score_in_GK :score10}, ()=>{
+                    console.log("id is",id)
+                }) 
+            }
+        else{
+        info = {
             Name: name,
             Email: ourContext.parameters.Email,
             Roll_No: ourContext.parameters.Roll_No,
             Total_Score_in_GK: score10
-        }
+        }}
+    })
 
         var saveData = new Model(info);
         saveData.save((err, mydata) => {
