@@ -286,25 +286,25 @@ exports.gk = async (agent) => {
             else {
                 info = {
                     Name: name,
-                    Email: ourContext.parameters.Email,
                     Roll_No: ourContext.parameters.Roll_No,
                     Total_Score_in_GK: score10
                 }
+                var saveData = new Model(info);
+                saveData.save((err, mydata) => {
+                    if (err) {
+                        console.log("error is:", err);
+                    }
+                    else {
+                        console.log("Save data is : ", mydata)
+                        return
+                    }
+                });
             }
         }).catch(err=>{
             console.log("error is : ",err)
         })
 
-        var saveData = new Model(info);
-        saveData.save((err, mydata) => {
-            if (err) {
-                console.log("error is:", err);
-            }
-            else {
-                console.log("Save data is : ", mydata)
-                return
-            }
-        });
+      
         agent.add(`Congratulations you answered all 10 questions, ${score10} out of 10 was correct, 
     Your score is ${(score10 * 100) / 10}%, Do you want me to send your transcript in your email?`)
         agent.setContext({
