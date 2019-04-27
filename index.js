@@ -59,6 +59,7 @@ app.post("/webhook", function (request, response, next) {
                 console.log("data is", data)
                 if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_GK=true)) {
+                        console.log("gk given")
                     agent.add("You have already given GK quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
@@ -67,6 +68,7 @@ app.post("/webhook", function (request, response, next) {
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_Science=true)) {
+                        console.log("sci given")
                     agent.add("You have already given Science quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
@@ -75,6 +77,7 @@ app.post("/webhook", function (request, response, next) {
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_History=true)) {
+                        console.log("hist given")
                     agent.add("You have already given History quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
@@ -82,6 +85,7 @@ app.post("/webhook", function (request, response, next) {
     
                 }
                 else{
+                    console.log("else trig")
                     agent.add("Please select the Subject in which you want to give quiz")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
