@@ -44,6 +44,7 @@ app.post("/webhook", function (request, response, next) {
         const idNo = agent.parameters['idNo'];
         const quizType = agent.parameters['quiztype'];
         const email = agent.parameters.email;
+        // var ourContext = agent.getContext("abc")
         if (!name) {
             agent.add("Kindly say your good name")
         }
@@ -56,7 +57,7 @@ app.post("/webhook", function (request, response, next) {
         else if (!quizType) {
             Model.find({}).lean().then(data => {
                 console.log("data is", data)
-                if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length
+                if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_GK)) {
                     agent.add("You have already given GK quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
@@ -64,7 +65,7 @@ app.post("/webhook", function (request, response, next) {
                     agent.add(new Suggestion(`History`));
     
                 }
-                else if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length
+                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_Science)) {
                     agent.add("You have already given Science quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
@@ -72,7 +73,7 @@ app.post("/webhook", function (request, response, next) {
                     agent.add(new Suggestion(`History`));
     
                 }
-                else if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length
+                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_History)) {
                     agent.add("You have already given History quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));

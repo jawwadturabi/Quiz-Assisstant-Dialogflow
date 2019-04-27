@@ -265,8 +265,6 @@ exports.gk = async (agent) => {
     else if (ourContext.parameters.opt9 && !ourContext.parameters.opt10) {
         console.log("context are : ", ourContext)
         var name = ourContext.parameters.Name
-        var info;
-        var id;
         if (opt === "1" && !ourContext.parameters.opt10) {
             score10 = ourContext.parameters.score9 + increment
         }
