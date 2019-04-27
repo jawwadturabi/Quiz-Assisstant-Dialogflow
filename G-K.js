@@ -275,7 +275,7 @@ exports.gk = async (agent) => {
         }
         Model.find({}).then(data => {
             console.log("data is", data)
-            if (data.filter((val) => val.Roll_No === ourContext.parameters.Roll_No).length) {
+            if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No)) {
                 Model.findOneAndUpdate({ Roll_No: ourContext.parameters.Roll_No }, { Total_Score_in_GK: score10 }, (err, data) => {
                     if(err) throw err
                     else{
