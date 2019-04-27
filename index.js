@@ -58,7 +58,7 @@ app.post("/webhook", function (request, response, next) {
             Model.find({}).lean().then(data => {
                 console.log("data is", data)
                 if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_GK)) {
+                    && data.filter((val) => val.Total_Score_in_GK=true)) {
                     agent.add("You have already given GK quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
@@ -66,7 +66,7 @@ app.post("/webhook", function (request, response, next) {
     
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_Science)) {
+                    && data.filter((val) => val.Total_Score_in_Science=true)) {
                     agent.add("You have already given Science quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
@@ -74,7 +74,7 @@ app.post("/webhook", function (request, response, next) {
     
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_History)) {
+                    && data.filter((val) => val.Total_Score_in_History=true)) {
                     agent.add("You have already given History quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
