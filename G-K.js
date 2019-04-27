@@ -273,22 +273,25 @@ exports.gk = async (agent) => {
         else {
             score10 = ourContext.parameters.score9
         }
-        Model.find({}).then(data =>{
-            console.log("data is", data) 
-            if(data.filter((val)=>val.Roll_No === ourContext.parameters.Roll_No).length
-             && data.filter((val)=>val.Total_Score_in_GK === ourContext.parameters.Total_Score_in_GK).length  ){
-                Model.findByIdAndUpdate(id, {Total_Score_in_GK :score10}, ()=>{
-                    console.log("id is",id)
-                }) 
+        Model.find({}).then(data => {
+            console.log("data is", data)
+            if (data.filter((val) => val.Roll_No === ourContext.parameters.Roll_No).length) {
+                Model.findOneAndUpdate({ Roll_No: ourContext.parameters.Roll_No }, { Total_Score_in_GK: score10 }, (err, data) => {
+                    if(err) throw err
+                    else{
+                    console.log("data is",data)
+                    }
+                })
             }
-        else{
-        info = {
-            Name: name,
-            Email: ourContext.parameters.Email,
-            Roll_No: ourContext.parameters.Roll_No,
-            Total_Score_in_GK: score10
-        }}
-    })
+            else {
+                info = {
+                    Name: name,
+                    Email: ourContext.parameters.Email,
+                    Roll_No: ourContext.parameters.Roll_No,
+                    Total_Score_in_GK: score10
+                }
+            }
+        })
 
         var saveData = new Model(info);
         saveData.save((err, mydata) => {
