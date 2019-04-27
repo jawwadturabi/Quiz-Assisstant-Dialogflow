@@ -39,7 +39,7 @@ app.post("/webhook", function (request, response, next) {
         return
     }
 
-  async  function Bio(agent) {
+    async function Bio(agent) {
         const name = agent.parameters['name'];
         const idNo = agent.parameters['idNo'];
         const quizType = agent.parameters['quiztype'];
@@ -55,46 +55,47 @@ app.post("/webhook", function (request, response, next) {
             agent.add("Kindly tell me your email address")
         }
         else if (!quizType) {
-            Model.find({}).lean().then(data => {
+            await Model.find({}).lean().then(data => {
                 console.log("data is", data)
                 if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_GK=true)) {
-                        console.log("gk given")
-                  await  agent.add("You have already given GK quiz. You want to try again or anyone else select from below")
+                    && data.filter((val) => val.Total_Score_in_GK = true)) {
+                    console.log("gk given")
+                    var msg = "You have already given GK quiz. You want to try again or anyone else select from below"
+                    agent.add(msg)
                     // agent.add(new Suggestion(`G-K`));
                     // agent.add(new Suggestion(`Science`));
                     // agent.add(new Suggestion(`History`));
                     return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_Science=true)) {
-                        console.log("sci given")
+                    && data.filter((val) => val.Total_Score_in_Science = true)) {
+                    console.log("sci given")
                     agent.add("You have already given Science quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
                     agent.add(new Suggestion(`History`));
-    
+
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_History=true)) {
-                        console.log("hist given")
+                    && data.filter((val) => val.Total_Score_in_History = true)) {
+                    console.log("hist given")
                     agent.add("You have already given History quiz. You want to try again or anyone else select from below")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
                     agent.add(new Suggestion(`History`));
-    
+
                 }
-                else{
+                else {
                     console.log("else trig")
                     agent.add("Please select the Subject in which you want to give quiz")
                     agent.add(new Suggestion(`G-K`));
                     agent.add(new Suggestion(`Science`));
                     agent.add(new Suggestion(`History`));
                 }
-                }).catch(err=>{
-                    console.log("error is : ", err)
-                })
-            
+            }).catch(err => {
+                console.log("error is : ", err)
+            })
+
         }
         else {
             agent.add(`The Subject of your quiz is ${quizType}.Say start quiz when you are ready`)
