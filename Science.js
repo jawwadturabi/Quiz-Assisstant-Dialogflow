@@ -1,7 +1,7 @@
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 // const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
-const Model = require("./schema.js").modelSci
+const Model = require("./schema.js").model
 const Model1 = require("./schema.js").model1
 exports.science = async (agent) => {
     var ourContext = agent.getContext("abc")
@@ -274,7 +274,7 @@ exports.science = async (agent) => {
         Model.find({}).then(data => {
             console.log("data is", data)
             if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length) {
-                Model.findOneAndUpdate({ Roll_No: ourContext.parameters.Roll_No }, { Total_Score_in_Science: score10, _v:0 }, (err, data) => {
+                Model.findOneAndUpdate({ Roll_No: ourContext.parameters.Roll_No }, { Total_Score_in_Science: score10, _v: 0 }, (err, data) => {
                     if (err) throw err
                     else {
                         console.log("Updated data is", data)
@@ -285,7 +285,9 @@ exports.science = async (agent) => {
                 var info = {
                     Name: name,
                     Roll_No: ourContext.parameters.Roll_No,
-                    Total_Score_in_Science: score10
+                    Total_Score_in_GK: score10,
+                    Total_Score_in_Science: "Quiz Not Given",
+                    Total_Score_in_History: "Quiz Not Given"
                 }
                 var saveData = new Model(info);
                 saveData.save((err, mydata) => {

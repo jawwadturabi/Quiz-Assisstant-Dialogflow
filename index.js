@@ -11,6 +11,7 @@ const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?re
 const G_K = require("./G-K")
 const Science = require("./Science")
 const hist = require("./History")
+const Model = require("./schema.js").model
 //connection with mongodb
 mongoose.connect(dburi, { useNewUrlParser: true }).catch(err => {
     console.log("error occured", err);
@@ -39,7 +40,6 @@ app.post("/webhook", function (request, response, next) {
     }
 
     function Bio(agent) {
-
         const name = agent.parameters['name'];
         const idNo = agent.parameters['idNo'];
         const quizType = agent.parameters['quiztype'];
@@ -48,16 +48,48 @@ app.post("/webhook", function (request, response, next) {
             agent.add("Kindly say your good name")
         }
         else if (!idNo) {
-            agent.add("Please tell me your ID No")
+            agent.add("Please tell me your Roll No")
         }
         else if (!email) {
             agent.add("Kindly tell me your email address")
         }
         else if (!quizType) {
-            agent.add("Please select the Subject in which you want to give quiz")
-            agent.add(new Suggestion(`G-K`));
-            agent.add(new Suggestion(`Science`));
-            agent.add(new Suggestion(`History`));
+            Model.find({}).lean().then(data => {
+                console.log("data is", data)
+                if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length
+                    && data.filter((val) => val.Total_Score_in_GK)) {
+                    agent.add("You have already given GK quiz. You want to try again or anyone else select from below")
+                    agent.add(new Suggestion(`G-K`));
+                    agent.add(new Suggestion(`Science`));
+                    agent.add(new Suggestion(`History`));
+    
+                }
+                else if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length
+                    && data.filter((val) => val.Total_Score_in_Science)) {
+                    agent.add("You have already given Science quiz. You want to try again or anyone else select from below")
+                    agent.add(new Suggestion(`G-K`));
+                    agent.add(new Suggestion(`Science`));
+                    agent.add(new Suggestion(`History`));
+    
+                }
+                else if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length
+                    && data.filter((val) => val.Total_Score_in_History)) {
+                    agent.add("You have already given History quiz. You want to try again or anyone else select from below")
+                    agent.add(new Suggestion(`G-K`));
+                    agent.add(new Suggestion(`Science`));
+                    agent.add(new Suggestion(`History`));
+    
+                }
+                else{
+                    agent.add("Please select the Subject in which you want to give quiz")
+                    agent.add(new Suggestion(`G-K`));
+                    agent.add(new Suggestion(`Science`));
+                    agent.add(new Suggestion(`History`));
+                }
+                }).catch(err=>{
+                    console.log("error is : ", err)
+                })
+            
         }
         else {
             agent.add(`The Subject of your quiz is ${quizType}.Say start quiz when you are ready`)
@@ -84,13 +116,13 @@ app.post("/webhook", function (request, response, next) {
     async function question(agent) {
         var ourContext = agent.getContext("abc")
         if (ourContext.parameters.Subject === "G-K") {
-          await  G_K.gk(agent)
+            await G_K.gk(agent)
         }
-        else if(ourContext.parameters.Subject === "Science"){
-            await  Science.science(agent)
+        else if (ourContext.parameters.Subject === "Science") {
+            await Science.science(agent)
         }
-        else if(ourContext.parameters.Subject === "History"){
-            await  hist.history(agent)
+        else if (ourContext.parameters.Subject === "History") {
+            await hist.history(agent)
         }
         return
 

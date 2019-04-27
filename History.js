@@ -1,7 +1,7 @@
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 // const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
-const Model = require("./schema.js").modelHis
+const Model = require("./schema.js").model
 const Model1 = require("./schema.js").model1
 
 exports.history = async (agent) => {
@@ -271,22 +271,36 @@ exports.history = async (agent) => {
         else {
             score10 = ourContext.parameters.score9
         }
-        var info = {
-            Name: name,
-            Roll_No: ourContext.parameters.Roll_No,
-            Total_Score_in_History: score10
-        }
-
-        var saveData = new Model(info);
-        saveData.save((err, mydata) => {
-            if (err) {
-                console.log("error is:", err);
+        Model.find({}).then(data => {
+            console.log("data is", data)
+            if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length) {
+                Model.findOneAndUpdate({ Roll_No: ourContext.parameters.Roll_No }, { Total_Score_in_History: score10, _v: 0 }, (err, data) => {
+                    if (err) throw err
+                    else {
+                        console.log("Updated data is", data)
+                    }
+                })
             }
             else {
-                console.log("data is : ", mydata)
-                return
+                var info = {
+                    Name: name,
+                    Roll_No: ourContext.parameters.Roll_No,
+                    Total_Score_in_GK: "Quiz Not Given",
+                    Total_Score_in_Science: "Quiz Not Given",
+                    Total_Score_in_History: score10
+                }
+                var saveData = new Model(info);
+                saveData.save((err, mydata) => {
+                    if (err) {
+                        console.log("error is:", err);
+                    }
+                    else {
+                        console.log("data is : ", mydata)
+                        return
+                    }
+                });
             }
-        });
+        })
         agent.add(`Congratulations ${name} you answered all 10 questions, ${score10} out of 10 was correct, 
     Your score is ${(score10 * 100) / 10}%, Do you want me to send your transcript in your email?`)
         agent.setContext({
