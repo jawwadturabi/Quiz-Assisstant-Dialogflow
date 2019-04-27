@@ -39,7 +39,7 @@ app.post("/webhook", function (request, response, next) {
         return
     }
 
-    function Bio(agent) {
+  async  function Bio(agent) {
         const name = agent.parameters['name'];
         const idNo = agent.parameters['idNo'];
         const quizType = agent.parameters['quiztype'];
@@ -60,7 +60,7 @@ app.post("/webhook", function (request, response, next) {
                 if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_GK=true)) {
                         console.log("gk given")
-                    agent.add("You have already given GK quiz. You want to try again or anyone else select from below")
+                  await  agent.add("You have already given GK quiz. You want to try again or anyone else select from below")
                     // agent.add(new Suggestion(`G-K`));
                     // agent.add(new Suggestion(`Science`));
                     // agent.add(new Suggestion(`History`));
