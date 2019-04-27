@@ -271,22 +271,34 @@ exports.science = async (agent) => {
         else {
             score10 = ourContext.parameters.score9
         }
-        var info = {
-            Name: name,
-            Roll_No: ourContext.parameters.Roll_No,
-            Total_Score_in_Science: score10
-        }
-
-        var saveData = new Model(info);
-        saveData.save((err, mydata) => {
-            if (err) {
-                console.log("error is:", err);
+        Model.find({}).then(data => {
+            console.log("data is", data)
+            if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length) {
+                Model.findOneAndUpdate({ Roll_No: ourContext.parameters.Roll_No }, { Total_Score_in_Science: score10 }, (err, data) => {
+                    if (err) throw err
+                    else {
+                        console.log("Updated data is", data)
+                    }
+                })
             }
             else {
-                console.log("data is : ", mydata)
-                return
+                var info = {
+                    Name: name,
+                    Roll_No: ourContext.parameters.Roll_No,
+                    Total_Score_in_Science: score10
+                }
+                var saveData = new Model(info);
+                saveData.save((err, mydata) => {
+                    if (err) {
+                        console.log("error is:", err);
+                    }
+                    else {
+                        console.log("data is : ", mydata)
+                        return
+                    }
+                });
             }
-        });
+        })
         agent.add(`Congratulations you answered all 10 questions, ${score10} out of 10 was correct, 
     Your score is ${(score10 * 100) / 10}%, Do you want me to send your transcript in your email?`)
         agent.setContext({
