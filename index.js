@@ -61,10 +61,10 @@ app.post("/webhook", function (request, response, next) {
                     && data.filter((val) => val.Total_Score_in_GK=true)) {
                         console.log("gk given")
                     agent.add("You have already given GK quiz. You want to try again or anyone else select from below")
-                    agent.add(new Suggestion(`G-K`));
-                    agent.add(new Suggestion(`Science`));
-                    agent.add(new Suggestion(`History`));
-    
+                    // agent.add(new Suggestion(`G-K`));
+                    // agent.add(new Suggestion(`Science`));
+                    // agent.add(new Suggestion(`History`));
+                    return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_Science=true)) {
