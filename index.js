@@ -62,9 +62,9 @@ app.post("/webhook", function (request, response, next) {
                     console.log("gk given")
                     var msg = "You have already given GK quiz. You want to try again or anyone else select from below"
                     agent.add(msg)
-                    // agent.add(new Suggestion(`G-K`));
-                    // agent.add(new Suggestion(`Science`));
-                    // agent.add(new Suggestion(`History`));
+                    agent.add(new Suggestion(`G-K`));
+                    agent.add(new Suggestion(`Science`));
+                    agent.add(new Suggestion(`History`));
                     return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
