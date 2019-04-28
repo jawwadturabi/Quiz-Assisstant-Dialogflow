@@ -85,10 +85,10 @@ app.post("/webhook", function (request, response, next) {
                         conv("Science and History", agent)
                         return
                     }
-                    else if (gkCh !== 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh !== 'Quiz not given') {
-                        conv("all three", agent)
-                        return
-                    }
+                    // else if (gkCh !== 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh !== 'Quiz not given') {
+                    //     conv("all three", agent)
+                    //     return
+                    // }
                 }
                 else {
                     console.log("else trig")
