@@ -58,32 +58,52 @@ app.post("/webhook", function (request, response, next) {
             await Model.find({}).lean().then(data => {
                 console.log("data is", data)
                 if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_GK = true)) {
+                    && data.filter((val) => val.Total_Score_in_GK = true) 
+                    && !(data.filter((val) => val.Total_Score_in_Science = true))
+                    && !(data.filter((val) => val.Total_Score_in_History = true))) {
                     console.log("gk given")
-                    var msg = "You have already given GK quiz. You want to try again or anyone else select from below"
-                    agent.add(msg)
-                    agent.add(new Suggestion(`G-K`));
-                    agent.add(new Suggestion(`Science`));
-                    agent.add(new Suggestion(`History`));
+                   await conv("GK")
                     return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_Science = true)) {
+                    && data.filter((val) => val.Total_Score_in_Science = true)
+                    && !(data.filter((val) => val.Total_Score_in_GK = true))
+                    && !(data.filter((val) => val.Total_Score_in_History = true))) {
                     console.log("sci given")
-                    agent.add("You have already given Science quiz. You want to try again or anyone else select from below")
-                    agent.add(new Suggestion(`G-K`));
-                    agent.add(new Suggestion(`Science`));
-                    agent.add(new Suggestion(`History`));
-
+                   await conv("Science")
+                   return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_History = true)) {
+                    && data.filter((val) => val.Total_Score_in_History = true)
+                    && !(data.filter((val) => val.Total_Score_in_GK = true))
+                    && !(data.filter((val) => val.Total_Score_in_Science = true))) {
                     console.log("hist given")
-                    agent.add("You have already given History quiz. You want to try again or anyone else select from below")
-                    agent.add(new Suggestion(`G-K`));
-                    agent.add(new Suggestion(`Science`));
-                    agent.add(new Suggestion(`History`));
-
+                   await conv("History")
+                   return
+                }
+                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
+                    && data.filter((val) => val.Total_Score_in_GK = true)
+                    && data.filter((val) => val.Total_Score_in_Science = true)
+                    && !(data.filter((val) => val.Total_Score_in_History = true))) {
+                    console.log("gk & sci given")
+                   await conv("GK and Science")
+                    return
+                }
+                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
+                    && data.filter((val) => val.Total_Score_in_GK = true)
+                    && data.filter((val) => val.Total_Score_in_History = true)
+                    && !(data.filter((val) => val.Total_Score_in_Science = true))) {
+                    console.log("gk & hist given")
+                   await conv("GK and History")
+                    return
+                }
+                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
+                    && data.filter((val) => val.Total_Score_in_Science = true)
+                    && data.filter((val) => val.Total_Score_in_History = true)
+                    && !(data.filter((val) => val.Total_Score_in_GK = true))) {
+                    console.log("gk given")
+                   await conv("Science and History")
+                 
                 }
                 else {
                     console.log("else trig")
@@ -134,6 +154,15 @@ app.post("/webhook", function (request, response, next) {
 
     }
 
+  async function conv(value){
+        var msg = `You have already given ${value} quiz. You want to try again or anyone else select from below`
+        agent.add(msg)
+        agent.add(new Suggestion(`G-K`));
+        agent.add(new Suggestion(`Science`));
+        agent.add(new Suggestion(`History`));
+        return
+
+    }
     let intents = new Map();
     intents.set("Default Welcome Intent", welcome);
     intents.set("Start-quiz", startQuiz);
