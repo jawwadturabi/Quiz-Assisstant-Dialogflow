@@ -55,74 +55,51 @@ app.post("/webhook", function (request, response, next) {
             agent.add("Kindly tell me your email address")
         }
         else if (!quizType) {
-            await Model.find({Roll_No:agent.parameters.idNo}).lean().then(data => {
-                console.log("data is", data)
-                if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_GK = true)
-                    && data.filter((val) => val.Total_Score_in_Science == 0).length
-                    && data.filter((val) => val.Total_Score_in_History == 0).length) {
-                    console.log("gk given")
-                    conv("GK", agent)
-                    return
+            var gkCh = data[0].Total_Score_in_GK
+            var sciCh = data[0].Total_Score_in_Science
+            var hisCh = data[0].Total_Score_in_History
+            await Model.find({ Roll_No: agent.parameters.idNo }).lean().then(data => {
+                console.log("data is", data[0])
+                if (data) {
+                    if (gkCh !== 'Quiz not given' && sciCh === 'Quiz not given' && hisCh === 'Quiz not given') {
+                        conv("Gk", agent)
+                        return
+                    }
+                    else if (gkCh !== 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh === 'Quiz not given') {
+                        conv("Gk and Science", agent)
+                        return
+                    }
+                    else if (gkCh !== 'Quiz not given' && sciCh === 'Quiz not given' && hisCh !== 'Quiz not given') {
+                        conv("Gk and History", agent)
+                        return
+                    }
+                    else if (gkCh === 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh === 'Quiz not given') {
+                        conv("Science", agent)
+                        return
+                    }
+                    else if (gkCh === 'Quiz not given' && sciCh === 'Quiz not given' && hisCh !== 'Quiz not given') {
+                        conv("History", agent)
+                        return
+                    }
+                    else if (gkCh === 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh !== 'Quiz not given') {
+                        conv("Science and History", agent)
+                        return
+                    }
+                    else if (gkCh !== 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh !== 'Quiz not given') {
+                        conv("all three", agent)
+                        return
+                    }
                 }
-                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_Science = true)
-                    && data.filter((val) => val.Total_Score_in_GK == 0).length
-                    && data.filter((val) => val.Total_Score_in_History == 0).length) {
-                    console.log("sci given")
-                    conv("Science", agent)
-                    return
-                }
-                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_History = true)
-                    && data.filter((val) => val.Total_Score_in_Science == 0).length
-                    && data.filter((val) => val.Total_Score_in_GK == 0).length) {
-                    console.log("hist given")
-                    conv("History", agent)
-                    return
-                }
-                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_GK = true)
-                    && data.filter((val) => val.Total_Score_in_Science = true)
-                    && data.filter((val) => val.Total_Score_in_History == 0).length) {
-                    console.log("gk & sci given")
-                    conv("GK and Science", agent)
-                    return
-                }
-                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_GK = true)
-                    && data.filter((val) => val.Total_Score_in_Science == 0).length
-                    && data.filter((val) => val.Total_Score_in_History = true)) {
-                    console.log("gk & hist given")
-                    conv("GK and History", agent)
-                    return
-                }
-                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_Science = true)
-                    && data.filter((val) => val.Total_Score_in_History = true)
-                    && data.filter((val) => val.Total_Score_in_GK == 0).length) {
-                    console.log("Sci and hist given")
-                    conv("Science and History", agent)
-                    return
-                }
-                // else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                //     && data.filter((val) => val.Total_Score_in_Science = true)
-                //     && data.filter((val) => val.Total_Score_in_History = true)
-                //     && data.filter((val) => val.Total_Score_in_GK = true)) {
-                //     console.log("all three quizes")
-                //     conv("all three quizes", agent)
-                //     return
-                // }
-                else {
-                    console.log("else trig")
-                    agent.add("Please select the Subject in which you want to give quiz")
-                    agent.add(new Suggestion(`G-K`));
-                    agent.add(new Suggestion(`Science`));
-                    agent.add(new Suggestion(`History`));
-                }
-            }).catch(err => {
-                console.log("error is : ", err)
-            })
+                    else {
+                        console.log("else trig")
+                        agent.add("Please select the Subject in which you want to give quiz")
+                        agent.add(new Suggestion(`G-K`));
+                        agent.add(new Suggestion(`Science`));
+                        agent.add(new Suggestion(`History`));
+                    }
+                }).catch(err => {
+                    console.log("error is : ", err)
+                })
 
         }
         else {
