@@ -105,14 +105,14 @@ app.post("/webhook", function (request, response, next) {
                     conv("Science and History", agent)
                     return
                 }
-                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_Science = true).length
-                    && data.filter((val) => val.Total_Score_in_History = true).length
-                    && data.filter((val) => val.Total_Score_in_GK = true).length) {
-                    console.log("all three quizes")
-                    conv("all three quizes", agent)
-                    return
-                }
+                // else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
+                //     && data.filter((val) => val.Total_Score_in_Science = true).length
+                //     && data.filter((val) => val.Total_Score_in_History = true).length
+                //     && data.filter((val) => val.Total_Score_in_GK = true).length) {
+                //     console.log("all three quizes")
+                //     conv("all three quizes", agent)
+                //     return
+                // }
                 else {
                     console.log("else trig")
                     agent.add("Please select the Subject in which you want to give quiz")
