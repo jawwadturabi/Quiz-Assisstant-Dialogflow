@@ -57,7 +57,14 @@ app.post("/webhook", function (request, response, next) {
         else if (!quizType) {
             await Model.find({ Roll_No: agent.parameters.idNo }).lean().then(data => {
                 console.log("data is", sciCh)
-                if (data!=undefined) {
+                if (!data) {
+                    console.log("else trig")
+                    agent.add("Please select the Subject in which you want to give quiz")
+                    agent.add(new Suggestion(`G-K`));
+                    agent.add(new Suggestion(`Science`));
+                    agent.add(new Suggestion(`History`));
+                }
+                else {
                     var gkCh = data[0].Total_Score_in_GK
                     var sciCh = data[0].Total_Score_in_Science
                     var hisCh = data[0].Total_Score_in_History
@@ -89,13 +96,7 @@ app.post("/webhook", function (request, response, next) {
                     //     conv("all three", agent)
                     //     return
                     // }
-                }
-                else {
-                    console.log("else trig")
-                    agent.add("Please select the Subject in which you want to give quiz")
-                    agent.add(new Suggestion(`G-K`));
-                    agent.add(new Suggestion(`Science`));
-                    agent.add(new Suggestion(`History`));
+
                 }
             }).catch(err => {
                 console.log("error is : ", err)
