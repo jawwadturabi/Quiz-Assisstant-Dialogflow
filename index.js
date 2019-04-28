@@ -56,11 +56,11 @@ app.post("/webhook", function (request, response, next) {
         }
         else if (!quizType) {
             await Model.find({ Roll_No: agent.parameters.idNo }).lean().then(data => {
-                var gkCh = data[0].Total_Score_in_GK
-                var sciCh = data[0].Total_Score_in_Science
-                var hisCh = data[0].Total_Score_in_History
                 console.log("data is", sciCh)
                 if (data) {
+                    var gkCh = data[0].Total_Score_in_GK
+                    var sciCh = data[0].Total_Score_in_Science
+                    var hisCh = data[0].Total_Score_in_History
                     if (gkCh != 'Quiz not given' && sciCh == 'Quiz not given' && hisCh == 'Quiz not given') {
                         conv("Gk", agent)
                         return
