@@ -4,9 +4,9 @@ var userDetail = new mongoose.Schema(
     {
         Name: { type: String, required: true },
         Roll_No: { type: String, required: true },
-        Total_Score_in_GK: { type: Number, default: 'Quiz not given' },
-        Total_Score_in_Science: { type: Number, default: 'Quiz not given' },
-        Total_Score_in_History: { type: Number, default: 'Quiz not given' },
+        Total_Score_in_GK: { type: String, default: 'Quiz not given' },
+        Total_Score_in_Science: { type: String, default: 'Quiz not given' },
+        Total_Score_in_History: { type: String, default: 'Quiz not given' },
     },
     { collection: "userData" }
 );
