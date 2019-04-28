@@ -286,9 +286,6 @@ exports.gk = async (agent) => {
                     Name: name,
                     Roll_No: ourContext.parameters.Roll_No,
                     Total_Score_in_GK: score10,
-                    Total_Score_in_Science: "Quiz Not Given",
-                    Total_Score_in_History: "Quiz Not Given"
-
                 }
                 var saveData = new Model(info);
                 saveData.save((err, mydata) => {

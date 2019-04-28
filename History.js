@@ -285,8 +285,6 @@ exports.history = async (agent) => {
                 var info = {
                     Name: name,
                     Roll_No: ourContext.parameters.Roll_No,
-                    Total_Score_in_GK: "Quiz Not Given",
-                    Total_Score_in_Science: "Quiz Not Given",
                     Total_Score_in_History: score10
                 }
                 var saveData = new Model(info);
