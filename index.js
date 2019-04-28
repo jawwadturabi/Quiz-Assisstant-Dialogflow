@@ -58,48 +58,60 @@ app.post("/webhook", function (request, response, next) {
             await Model.find({}).lean().then(data => {
                 console.log("data is", data)
                 if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_GK = true) 
-                    && !(data.filter((val) => val.Total_Score_in_Science = true))
-                    && !(data.filter((val) => val.Total_Score_in_History = true))) {
+                    && data.filter((val) => val.Total_Score_in_GK = true)
+                    && data.filter((val) => val.Total_Score_in_Science = null)
+                    && data.filter((val) => val.Total_Score_in_History = null)) {
                     console.log("gk given")
-                    conv("GK",agent)
-                         return
+                    conv("GK", agent)
+                    return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_Science = true)
-                    && data.filter((val) => val.Total_Score_in_GK != true)
-                    && data.filter((val) => val.Total_Score_in_History != true)) {
+                    && data.filter((val) => val.Total_Score_in_GK = null)
+                    && data.filter((val) => val.Total_Score_in_History = null)) {
                     console.log("sci given")
-                    conv("Science",agent)
-                             return
+                    conv("Science", agent)
+                    return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_History = true)) {
+                    && data.filter((val) => val.Total_Score_in_History = true)
+                    && data.filter((val) => val.Total_Score_in_Science = null)
+                    && data.filter((val) => val.Total_Score_in_GK = null)) {
                     console.log("hist given")
-                    conv("History",agent)
-                             return
+                    conv("History", agent)
+                    return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_GK = true)
                     && data.filter((val) => val.Total_Score_in_Science = true)
-                    ) {
+                    && data.filter((val) => val.Total_Score_in_History = null)) {
                     console.log("gk & sci given")
-                    conv("GK and Science",agent)
-                                     return
+                    conv("GK and Science", agent)
+                    return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_GK = true)
+                    && data.filter((val) => val.Total_Score_in_Science = null)
                     && data.filter((val) => val.Total_Score_in_History = true)) {
                     console.log("gk & hist given")
-                    conv("GK and History",agent)
-                                     return
+                    conv("GK and History", agent)
+                    return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_Science = true)
-                    && data.filter((val) => val.Total_Score_in_History = true)) {
+                    && data.filter((val) => val.Total_Score_in_History = true)
+                    && data.filter((val) => val.Total_Score_in_GK = null)) {
                     console.log("Sci and hist given")
-                    conv("Science and History",agent)
-                 
+                    conv("Science and History", agent)
+                    return
+                }
+                else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
+                    && data.filter((val) => val.Total_Score_in_Science = true)
+                    && data.filter((val) => val.Total_Score_in_History = true)
+                    && data.filter((val) => val.Total_Score_in_GK = true)) {
+                    console.log("all three quizes")
+                    conv("all three quizes", agent)
+                    return
                 }
                 else {
                     console.log("else trig")
@@ -150,7 +162,7 @@ app.post("/webhook", function (request, response, next) {
 
     }
 
-  async function conv(value,agent){
+    async function conv(value, agent) {
         var msg = `You have already given ${value} quiz. You want to try again or anyone else select from below`
         agent.add(msg)
         agent.add(new Suggestion(`G-K`));
