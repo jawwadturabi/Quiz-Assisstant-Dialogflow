@@ -106,9 +106,9 @@ app.post("/webhook", function (request, response, next) {
                     return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
-                    && data.filter((val) => val.Total_Score_in_Science = true)
-                    && data.filter((val) => val.Total_Score_in_History = true)
-                    && data.filter((val) => val.Total_Score_in_GK = true)) {
+                    && data.filter((val) => val.Total_Score_in_Science = true).length
+                    && data.filter((val) => val.Total_Score_in_History = true).length
+                    && data.filter((val) => val.Total_Score_in_GK = true).length) {
                     console.log("all three quizes")
                     conv("all three quizes", agent)
                     return
