@@ -62,7 +62,7 @@ app.post("/webhook", function (request, response, next) {
                     && !(data.filter((val) => val.Total_Score_in_Science = true))
                     && !(data.filter((val) => val.Total_Score_in_History = true))) {
                     console.log("gk given")
-                   await conv("GK")
+                    conv("GK")
                     return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
@@ -70,7 +70,7 @@ app.post("/webhook", function (request, response, next) {
                     && !(data.filter((val) => val.Total_Score_in_GK = true))
                     && !(data.filter((val) => val.Total_Score_in_History = true))) {
                     console.log("sci given")
-                   await conv("Science")
+                    conv("Science")
                    return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
@@ -78,7 +78,7 @@ app.post("/webhook", function (request, response, next) {
                     && !(data.filter((val) => val.Total_Score_in_GK = true))
                     && !(data.filter((val) => val.Total_Score_in_Science = true))) {
                     console.log("hist given")
-                   await conv("History")
+                    conv("History")
                    return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
@@ -86,7 +86,7 @@ app.post("/webhook", function (request, response, next) {
                     && data.filter((val) => val.Total_Score_in_Science = true)
                     && !(data.filter((val) => val.Total_Score_in_History = true))) {
                     console.log("gk & sci given")
-                   await conv("GK and Science")
+                    conv("GK and Science")
                     return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
@@ -94,7 +94,7 @@ app.post("/webhook", function (request, response, next) {
                     && data.filter((val) => val.Total_Score_in_History = true)
                     && !(data.filter((val) => val.Total_Score_in_Science = true))) {
                     console.log("gk & hist given")
-                   await conv("GK and History")
+                    conv("GK and History")
                     return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
@@ -102,7 +102,7 @@ app.post("/webhook", function (request, response, next) {
                     && data.filter((val) => val.Total_Score_in_History = true)
                     && !(data.filter((val) => val.Total_Score_in_GK = true))) {
                     console.log("gk given")
-                   await conv("Science and History")
+                    conv("Science and History")
                  
                 }
                 else {
