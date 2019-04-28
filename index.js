@@ -55,7 +55,7 @@ app.post("/webhook", function (request, response, next) {
             agent.add("Kindly tell me your email address")
         }
         else if (!quizType) {
-            await Model.find({}).lean().then(data => {
+            await Model.find({Roll_No:agent.parameters.idNo}).lean().then(data => {
                 console.log("data is", data)
                 if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_GK = true)
