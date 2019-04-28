@@ -59,33 +59,33 @@ app.post("/webhook", function (request, response, next) {
                 var gkCh = data[0].Total_Score_in_GK
                 var sciCh = data[0].Total_Score_in_Science
                 var hisCh = data[0].Total_Score_in_History
-                console.log("data is", data[0].Total_Score_in_History)
+                console.log("data is", sciCh)
                 if (data) {
-                    if (gkCh !== 'Quiz not given' && sciCh === 'Quiz not given' && hisCh === 'Quiz not given') {
+                    if (gkCh != 'Quiz not given' && sciCh == 'Quiz not given' && hisCh == 'Quiz not given') {
                         conv("Gk", agent)
                         return
                     }
-                    else if (gkCh !== 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh === 'Quiz not given') {
+                    else if (gkCh != 'Quiz not given' && sciCh != 'Quiz not given' && hisCh == 'Quiz not given') {
                         conv("Gk and Science", agent)
                         return
                     }
-                    else if (gkCh !== 'Quiz not given' && sciCh === 'Quiz not given' && hisCh !== 'Quiz not given') {
+                    else if (gkCh != 'Quiz not given' && sciCh == 'Quiz not given' && hisCh != 'Quiz not given') {
                         conv("Gk and History", agent)
                         return
                     }
-                    else if (gkCh === 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh === 'Quiz not given') {
+                    else if (gkCh == 'Quiz not given' && sciCh != 'Quiz not given' && hisCh == 'Quiz not given') {
                         conv("Science", agent)
                         return
                     }
-                    else if (gkCh === 'Quiz not given' && sciCh === 'Quiz not given' && hisCh !== 'Quiz not given') {
+                    else if (gkCh == 'Quiz not given' && sciCh == 'Quiz not given' && hisCh != 'Quiz not given') {
                         conv("History", agent)
                         return
                     }
-                    else if (gkCh === 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh !== 'Quiz not given') {
+                    else if (gkCh == 'Quiz not given' && sciCh != 'Quiz not given' && hisCh != 'Quiz not given') {
                         conv("Science and History", agent)
                         return
                     }
-                    // else if (gkCh !== 'Quiz not given' && sciCh !== 'Quiz not given' && hisCh !== 'Quiz not given') {
+                    // else if (gkCh != 'Quiz not given' && sciCh != 'Quiz not given' && hisCh != 'Quiz not given') {
                     //     conv("all three", agent)
                     //     return
                     // }
