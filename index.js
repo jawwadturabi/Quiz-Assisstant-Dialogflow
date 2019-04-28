@@ -43,7 +43,7 @@ app.post("/webhook", function (request, response, next) {
         const name = agent.parameters['name'];
         const idNo = agent.parameters['idNo'];
         const quizType = agent.parameters['quiztype'];
-        const email = agent.parameters.email;
+        const email = agent.parameters['email'];
         // var ourContext = agent.getContext("abc")
         if (!name) {
             agent.add("Kindly say your good name")
