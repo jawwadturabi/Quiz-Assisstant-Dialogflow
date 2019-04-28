@@ -84,7 +84,7 @@ app.post("/webhook", function (request, response, next) {
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_GK = true)
                     && data.filter((val) => val.Total_Score_in_Science = true)
-                    && !(data.filter((val) => val.Total_Score_in_History = true))) {
+                    ) {
                     console.log("gk & sci given")
                     conv("GK and Science")
                     return
