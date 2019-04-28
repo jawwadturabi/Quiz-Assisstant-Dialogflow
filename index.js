@@ -56,8 +56,8 @@ app.post("/webhook", function (request, response, next) {
         }
         else if (!quizType) {
             await Model.find({ Roll_No: agent.parameters.idNo }).lean().then(data => {
-                console.log("data is", sciCh)
-                if (!data) {
+                console.log("data is", data)
+                if (data=[]) {
                     console.log("else trig")
                     agent.add("Please select the Subject in which you want to give quiz")
                     agent.add(new Suggestion(`G-K`));
