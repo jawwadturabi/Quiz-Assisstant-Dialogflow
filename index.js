@@ -62,47 +62,47 @@ app.post("/webhook", function (request, response, next) {
                     && !(data.filter((val) => val.Total_Score_in_Science = true))
                     && !(data.filter((val) => val.Total_Score_in_History = true))) {
                     console.log("gk given")
-                    conv("GK")
-                    return
+                    conv("GK",agent)
+                         return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_Science = true)
                     && !(data.filter((val) => val.Total_Score_in_GK = true))
                     && !(data.filter((val) => val.Total_Score_in_History = true))) {
                     console.log("sci given")
-                    conv("Science")
-                   return
+                    conv("Science",agent)
+                             return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_History = true)
                     && !(data.filter((val) => val.Total_Score_in_GK = true))
                     && !(data.filter((val) => val.Total_Score_in_Science = true))) {
                     console.log("hist given")
-                    conv("History")
-                   return
+                    conv("History",agent)
+                             return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_GK = true)
                     && data.filter((val) => val.Total_Score_in_Science = true)
                     ) {
                     console.log("gk & sci given")
-                    conv("GK and Science")
-                    return
+                    conv("GK and Science",agent)
+                                     return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_GK = true)
                     && data.filter((val) => val.Total_Score_in_History = true)
                     && !(data.filter((val) => val.Total_Score_in_Science = true))) {
                     console.log("gk & hist given")
-                    conv("GK and History")
-                    return
+                    conv("GK and History",agent)
+                                     return
                 }
                 else if (data.filter((val) => val.Roll_No == agent.parameters.idNo).length
                     && data.filter((val) => val.Total_Score_in_Science = true)
                     && data.filter((val) => val.Total_Score_in_History = true)
                     && !(data.filter((val) => val.Total_Score_in_GK = true))) {
                     console.log("gk given")
-                    conv("Science and History")
+                    conv("Science and History",agent)
                  
                 }
                 else {
@@ -154,7 +154,7 @@ app.post("/webhook", function (request, response, next) {
 
     }
 
-  async function conv(value){
+  async function conv(value,agent){
         var msg = `You have already given ${value} quiz. You want to try again or anyone else select from below`
         agent.add(msg)
         agent.add(new Suggestion(`G-K`));
