@@ -55,10 +55,10 @@ app.post("/webhook", function (request, response, next) {
             agent.add("Kindly tell me your email address")
         }
         else if (!quizType) {
-            var gkCh = data[0].Total_Score_in_GK
-            var sciCh = data[0].Total_Score_in_Science
-            var hisCh = data[0].Total_Score_in_History
             await Model.find({ Roll_No: agent.parameters.idNo }).lean().then(data => {
+                var gkCh = data[0].Total_Score_in_GK
+                var sciCh = data[0].Total_Score_in_Science
+                var hisCh = data[0].Total_Score_in_History
                 console.log("data is", data[0])
                 if (data) {
                     if (gkCh !== 'Quiz not given' && sciCh === 'Quiz not given' && hisCh === 'Quiz not given') {
@@ -90,16 +90,16 @@ app.post("/webhook", function (request, response, next) {
                         return
                     }
                 }
-                    else {
-                        console.log("else trig")
-                        agent.add("Please select the Subject in which you want to give quiz")
-                        agent.add(new Suggestion(`G-K`));
-                        agent.add(new Suggestion(`Science`));
-                        agent.add(new Suggestion(`History`));
-                    }
-                }).catch(err => {
-                    console.log("error is : ", err)
-                })
+                else {
+                    console.log("else trig")
+                    agent.add("Please select the Subject in which you want to give quiz")
+                    agent.add(new Suggestion(`G-K`));
+                    agent.add(new Suggestion(`Science`));
+                    agent.add(new Suggestion(`History`));
+                }
+            }).catch(err => {
+                console.log("error is : ", err)
+            })
 
         }
         else {
