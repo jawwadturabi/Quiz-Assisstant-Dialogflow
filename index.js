@@ -64,7 +64,7 @@ app.post("/webhook", function (request, response, next) {
                     agent.add(new Suggestion(`Science`));
                     agent.add(new Suggestion(`History`));
                 }
-                else {
+                else if (data[0].Total_Score_in_GK) {
                     var gkCh = data[0].Total_Score_in_GK
                     var sciCh = data[0].Total_Score_in_Science
                     var hisCh = data[0].Total_Score_in_History
