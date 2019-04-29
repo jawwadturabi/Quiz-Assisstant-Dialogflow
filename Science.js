@@ -37,7 +37,7 @@ exports.science = async (agent) => {
             score1 = score
         }
         await Model1.find({}).then(data => {
-            agent.add(`You saRoll_No option ${opt}, Here is your next question.${data[1].Question[i1]}`)
+            agent.add(`You said option ${opt}, Here is your next question.${data[1].Question[i1]}`)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -64,7 +64,7 @@ exports.science = async (agent) => {
             score2 = ourContext.parameters.score1
         }
         await Model1.find({}).then(data => {
-            agent.add(`You said opt ${opt} . Here is your next question.${data[1].Question[i2]} `)
+            agent.add(`You said option ${opt} . Here is your next question.${data[1].Question[i2]} `)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -91,7 +91,7 @@ exports.science = async (agent) => {
             score3 = ourContext.parameters.score2
         }
         await Model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}. Here is your next question.${data[1].Question[i3]} `)
+            agent.add(`You said option ${opt}. Here is your next question.${data[1].Question[i3]} `)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -118,7 +118,7 @@ exports.science = async (agent) => {
             score4 = ourContext.parameters.score3
         }
         await Model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i4]} `)
+            agent.add(`You said option ${opt}.Here is your next question.${data[1].Question[i4]} `)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -144,7 +144,7 @@ exports.science = async (agent) => {
             score5 = ourContext.parameters.score4
         }
         await Model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i5]}`)
+            agent.add(`You said option ${opt}.Here is your next question.${data[1].Question[i5]}`)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -170,7 +170,7 @@ exports.science = async (agent) => {
             score6 = ourContext.parameters.score5
         }
         await Model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i6]}`)
+            agent.add(`You said option ${opt}.Here is your next question.${data[1].Question[i6]}`)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,
@@ -196,7 +196,7 @@ exports.science = async (agent) => {
             score7 = ourContext.parameters.score6
         }
         await Model1.find({}).then(data => {
-            agent.add(`You said opt ${opt}.Here is your next question.${data[1].Question[i7]}`)
+            agent.add(`You said option ${opt}.Here is your next question.${data[1].Question[i7]}`)
             agent.setContext({
                 name: "abc",
                 lifespan: 5,

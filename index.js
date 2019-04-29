@@ -55,6 +55,7 @@ app.post("/webhook", function (request, response, next) {
             agent.add("Kindly tell me your email address")
         }
         else if (!quizType) {
+
             await Model.find({ Roll_No: agent.parameters.idNo }).lean().then(data => {
                 console.log("data is", data)
                 if (!data[0]) {
@@ -68,7 +69,14 @@ app.post("/webhook", function (request, response, next) {
                     var gkCh = data[0].Total_Score_in_GK
                     var sciCh = data[0].Total_Score_in_Science
                     var hisCh = data[0].Total_Score_in_History
-                    if (gkCh != 'Quiz not given' && sciCh == 'Quiz not given' && hisCh == 'Quiz not given') {
+                    if(agent.parameters.ask=='yes'){
+                        agent.add(`Name: ${data[0].Name}
+                                   Roll No: ${data[0].Roll_No} 
+                                   Total Score in GK: ${gkCh}
+                                   Total Score in GK: ${sciCh}
+                                   Total Score in GK: ${hisCh}`)
+                    }
+                    else if (gkCh != 'Quiz not given' && sciCh == 'Quiz not given' && hisCh == 'Quiz not given') {
                         conv("Gk", agent)
                         return
                     }
@@ -92,16 +100,14 @@ app.post("/webhook", function (request, response, next) {
                         conv("Science and History", agent)
                         return
                     }
-                    // else if (gkCh != 'Quiz not given' && sciCh != 'Quiz not given' && hisCh != 'Quiz not given') {
-                    //     conv("all three", agent)
-                    //     return
-                    // }
-
+                    else if (gkCh != 'Quiz not given' && sciCh != 'Quiz not given' && hisCh != 'Quiz not given') {
+                        conv("all three", agent)
+                        return
+                    }
                 }
             }).catch(err => {
                 console.log("error is : ", err)
             })
-
         }
         else {
             agent.add(`The Subject of your quiz is ${quizType}.Say start quiz when you are ready`)
@@ -141,7 +147,7 @@ app.post("/webhook", function (request, response, next) {
     }
 
     async function conv(value, agent) {
-        var msg = `You have already given ${value} quiz. You want to try again or anyone else select from below`
+        var msg = `You have already given ${value} quiz.To see your previous record say yes or want to try from below`
         agent.add(msg)
         agent.add(new Suggestion(`G-K`));
         agent.add(new Suggestion(`Science`));
