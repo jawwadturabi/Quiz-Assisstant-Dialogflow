@@ -34,7 +34,7 @@ app.post("/webhook", function (request, response, next) {
     const _agent = new WebhookClient({ request, response });
 
     function welcome(agent) {
-        agent.add(`Hi! I'm your quiz assistant.I will conduct your general knowledge quiz,
+        agent.add(`Hi! I'm your quiz assistant.I will conduct your quiz,
         Please tell me your name, id no and email address.`)
         return
     }
@@ -63,11 +63,27 @@ app.post("/webhook", function (request, response, next) {
         }
         return
     }
+    function questionYes(agent){
+        const email = ourContext.parameters.Email
+        const finalScore = ourContext.parameters.score10
+        var client = new postmark.ServerClient("e6a1e031-f7f7-4ffe-81db-6b8e4f212fc0");
+
+        client.sendEmail({
+            "From": "info@abcquiz.tk",
+            "To": email,
+            "Subject": "Test",
+            "TextBody": `Congratulations you passed the quiz and answered all 10 questions, ${finalScore} out of 10 was correct, 
+        Your score is ${(finalScore * 100) / 10}%`
+        });
+        agent.add(`Email is successfully sent. Thanks for giving quiz, Bye bye `);
+    }
+    
 
     let intents = new Map();
     intents.set("Default Welcome Intent", welcome);
     intents.set("Start-quiz", startQuiz);
     intents.set("question", question)
+    intents.set("question - yes", questionYes)
     intents.set("Bio", Bio)
     _agent.handleRequest(intents)
 })

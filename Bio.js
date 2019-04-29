@@ -74,6 +74,13 @@ exports.bio = async (agent) => {
             console.log("error is : ", err)
         })
     }
+    else if (quizType) {
+        agent.add(`Here is the overview of your quiz. You'll be ask 10 questions one by one.
+         Each question has three options to answer.Say "read the question" to listen a question and to listen again
+         say "read this question again".To answer a question say "option 1 or 2" etc. You can skip any question by
+         saying "skip this question".You can find your status at any time by saying "what is my status".
+         You can end the quiz by saying "Finish the quiz". After completing quiz say "Review quiz" to review the questions.`)
+        }
     else {
         agent.add(`The Subject of your quiz is ${quizType}.Say start quiz when you are ready`)
     }
