@@ -11,7 +11,7 @@ const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?re
 const G_K = require("./G-K")
 const Science = require("./Science")
 const hist = require("./History")
-const Bio = require("./Bio")
+const biod = require("./Bio")
 //connection with mongodb
 mongoose.connect(dburi, { useNewUrlParser: true }).catch(err => {
     console.log("error occured", err);
@@ -40,7 +40,7 @@ app.post("/webhook", function (request, response, next) {
     }
 
     async function Bio(agent) {
-       await Bio.bio(agent)
+       await biod.bio(agent)
         return
     }
 
