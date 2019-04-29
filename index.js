@@ -40,7 +40,7 @@ app.post("/webhook", function (request, response, next) {
     }
 
     async function Bio(agent) {
-       await biod.bio(agent)
+        await biod.bio(agent)
         return
     }
 
@@ -63,6 +63,7 @@ app.post("/webhook", function (request, response, next) {
         }
         return
     }
+
     let intents = new Map();
     intents.set("Default Welcome Intent", welcome);
     intents.set("Start-quiz", startQuiz);
@@ -70,7 +71,6 @@ app.post("/webhook", function (request, response, next) {
     intents.set("Bio", Bio)
     _agent.handleRequest(intents)
 })
-
 app.listen(process.env.PORT || 3043, function () {
     console.log("server is running")
 })

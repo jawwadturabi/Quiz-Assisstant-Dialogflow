@@ -1,4 +1,5 @@
 const Model = require("./schema.js").model
+const { Card, Suggestion } = require("dialogflow-fulfillment");
 
 exports.bio = async (agent) => {
     const name = agent.parameters['name'];
