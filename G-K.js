@@ -12,7 +12,7 @@ exports.gk = async (agent) => {
     var score1; var score2; var score3; var score4; var score5;
     var score6; var score7; var score8; var score9; var score10;
     const opt = agent.parameters['option'];
-    if (!opt) {
+    if (!opt && !usrCmd) {
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
         await Model1.find({}).then(data => {
@@ -29,7 +29,7 @@ exports.gk = async (agent) => {
         })
     }
 
-    else if ((opt || usrCmd == 'read this question' || usrCmd == 'read this question again') && !ourContext.parameters.opt1) {
+    else if (opt  && !ourContext.parameters.opt1) {
         i1 = i + increment
         console.log("ques 2 triggered")
         console.log("context are : ", ourContext)
