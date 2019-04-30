@@ -29,7 +29,7 @@ exports.gk = async (agent) => {
         })
     }
 
-    else if (opt  && !ourContext.parameters.opt1) {
+    else if (opt && !ourContext.parameters.opt1 && !usrCmd) {
         i1 = i + increment
         console.log("ques 2 triggered")
         console.log("context are : ", ourContext)
@@ -57,7 +57,7 @@ exports.gk = async (agent) => {
         })
     }
 
-    else if (ourContext.parameters.opt1 && !ourContext.parameters.opt2) {
+    else if (ourContext.parameters.opt1 && !ourContext.parameters.opt2 && !usrCmd) {
         i2 = ourContext.parameters.i1 + increment
         console.log("value of i is :", i)
         console.log("ques 3 triggered")
@@ -86,7 +86,7 @@ exports.gk = async (agent) => {
         })
     }
 
-    else if (ourContext.parameters.opt2 && !ourContext.parameters.opt3) {
+    else if (ourContext.parameters.opt2 && !ourContext.parameters.opt3 && !usrCmd) {
         i3 = ourContext.parameters.i2 + increment
         console.log("value of i is :", i)
         console.log("ques 4 triggered")
@@ -116,7 +116,7 @@ exports.gk = async (agent) => {
 
     }
 
-    else if (ourContext.parameters.opt3 && !ourContext.parameters.opt4) {
+    else if (ourContext.parameters.opt3 && !ourContext.parameters.opt4 && !usrCmd) {
         i4 = ourContext.parameters.i3 + increment
         console.log("ques 5 triggered")
         console.log("context are : ", ourContext)
@@ -144,7 +144,7 @@ exports.gk = async (agent) => {
         })
     }
 
-    else if (ourContext.parameters.opt4 && !ourContext.parameters.opt5) {
+    else if (ourContext.parameters.opt4 && !ourContext.parameters.opt5 && !usrCmd) {
         i5 = ourContext.parameters.i4 + increment
         console.log("ques 6 triggered")
         console.log("context are : ", ourContext)
@@ -172,7 +172,7 @@ exports.gk = async (agent) => {
         })
     }
 
-    else if (ourContext.parameters.opt5 && !ourContext.parameters.opt6) {
+    else if (ourContext.parameters.opt5 && !ourContext.parameters.opt6 && !usrCmd) {
         i6 = ourContext.parameters.i5 + increment
         console.log("ques 7 triggered")
         console.log("context are : ", ourContext)
@@ -200,7 +200,7 @@ exports.gk = async (agent) => {
         })
     }
 
-    else if (ourContext.parameters.opt6 && !ourContext.parameters.opt7) {
+    else if (ourContext.parameters.opt6 && !ourContext.parameters.opt7 && !usrCmd) {
         i7 = ourContext.parameters.i6 + increment
         console.log("ques 8 triggered")
         console.log("context are : ", ourContext)
@@ -228,7 +228,7 @@ exports.gk = async (agent) => {
         })
     }
 
-    else if (ourContext.parameters.opt7 && !ourContext.parameters.opt8) {
+    else if (ourContext.parameters.opt7 && !ourContext.parameters.opt8 && !usrCmd) {
         i8 = ourContext.parameters.i7 + increment
         console.log("ques 9 triggered")
         console.log("context are : ", ourContext)
@@ -256,7 +256,7 @@ exports.gk = async (agent) => {
         })
     }
 
-    else if (ourContext.parameters.opt8 && !ourContext.parameters.opt9) {
+    else if (ourContext.parameters.opt8 && !ourContext.parameters.opt9 && !usrCmd) {
         i9 = ourContext.parameters.i8 + increment
         console.log("ques 10 triggered")
         console.log("context are : ", ourContext)
