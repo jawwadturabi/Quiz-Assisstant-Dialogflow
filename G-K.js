@@ -1,21 +1,18 @@
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
-// const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
 const Model = require("./schema.js").model
 const Model1 = require("./schema.js").model1
 
 exports.gk = async (agent) => {
+    const usrCmd = agent.parameters['usrcmd'];
     var ourContext = agent.getContext("abc")
-    var score = 0;
-    var increment = 1;
-    var i = 0;
+    var score = 0; var increment = 1; var i = 0;
     var i1; var i2; var i3; var i4; var i5; var i6; //differnt variables to store in context
     var i7; var i8; var i9;
     var score1; var score2; var score3; var score4; var score5;
     var score6; var score7; var score8; var score9; var score10;
     const opt = agent.parameters['option'];
-    const ask = agent.parameters['ask'];
-    if (!opt && !ask) {
+    if (!opt) {
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
         await Model1.find({}).then(data => {
@@ -23,9 +20,16 @@ exports.gk = async (agent) => {
         }).catch(err => {
             console.log("Error is : ", err)
         })
+        agent.setContext({
+            name: "abc",
+            lifespan: 5,
+            "parameters": {
+                "Q":data[0].Question[i]
+            }
+        });
     }
 
-    else if (opt && !ourContext.parameters.opt1) {
+    else if ((opt||usrCmd=='read this question'||usrCmd=='read this question again') && !ourContext.parameters.opt1) {
         i1 = i + increment
         console.log("ques 2 triggered")
         console.log("context are : ", ourContext)
@@ -43,8 +47,12 @@ exports.gk = async (agent) => {
                 lifespan: 5,
                 "parameters": {
                     "opt1": opt, i1,
-                    score1
-               "Q10":data[0].Question[i9] {
+                    score1,
+                    "Q1":data[0].Question[i],
+                    "Q":data[0].Question[i]
+                }
+            });
+        }).catch(err => {
             console.log("Error is : ", err)
         })
     }
@@ -68,8 +76,12 @@ exports.gk = async (agent) => {
                 lifespan: 5,
                 "parameters": {
                     "opt2": opt, i2,
-                    score2
-               "Q10":data[0].Question[i9] {
+                    score2,
+                    "Q2":data[0].Question[i1],
+                    "Q":data[0].Question[i1]
+                }
+            })
+        }).catch(err => {
             console.log("Error is : ", err)
         })
     }
@@ -93,8 +105,12 @@ exports.gk = async (agent) => {
                 lifespan: 5,
                 "parameters": {
                     "opt3": opt, i3,
-                    score3
-               "Q10":data[0].Question[i9] {
+                    score3,
+                    "Q3":data[0].Question[i2],
+                    "Q":data[0].Question[i2]
+                }
+            })
+        }).catch(err => {
             console.log("Error is : ", err)
         })
 
@@ -118,8 +134,12 @@ exports.gk = async (agent) => {
                 lifespan: 5,
                 "parameters": {
                     "opt4": opt, i4,
-                    score4
-               "Q10":data[0].Question[i9] {
+                    score4,
+                    "Q4":data[0].Question[i3],
+                    "Q":data[0].Question[i3]
+                }
+            });
+        }).catch(err => {
             console.log("Error is : ", err)
         })
     }
@@ -142,8 +162,12 @@ exports.gk = async (agent) => {
                 lifespan: 5,
                 "parameters": {
                     "opt5": opt, i5,
-                    score5
-               "Q10":data[0].Question[i9] {
+                    score5,
+                    "Q5":data[0].Question[i4],
+                    "Q":data[0].Question[i4]
+                }
+            });
+        }).catch(err => {
             console.log("Error is : ", err)
         })
     }
@@ -166,8 +190,12 @@ exports.gk = async (agent) => {
                 lifespan: 5,
                 "parameters": {
                     "opt6": opt, i6,
-                    score6
-               "Q10":data[0].Question[i9] {
+                    score6,
+                    "Q6":data[0].Question[i5],
+                    "Q":data[0].Question[i5]
+                }
+            });
+        }).catch(err => {
             console.log("Error is : ", err)
         })
     }
@@ -190,8 +218,12 @@ exports.gk = async (agent) => {
                 lifespan: 5,
                 "parameters": {
                     "opt7": opt, i7,
-                    score7
-               "Q10":data[0].Question[i9] {
+                    score7,
+                    "Q7":data[0].Question[i6],
+                    "Q":data[0].Question[i6]
+                }
+            });
+        }).catch(err => {
             console.log("Error is : ", err)
         })
     }
@@ -214,8 +246,11 @@ exports.gk = async (agent) => {
                 lifespan: 5,
                 "parameters": {
                     "opt8": opt, i8,
-                    score8
-               "Q10":data[0].Question[i9] {
+                    score8,
+                    "Q8":data[0].Question[i7]
+                }
+            });
+        }).catch(err => {
             console.log("Error is : ", err)
         })
     }
@@ -239,7 +274,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt9": opt, i9,
                     score9,
-                    "Q10":data[0].Question[i9]
+                    "Q9":data[0].Question[i8],
+                    "Q":data[0].Question[i8]
                 }
             });
         }).catch(err => {
@@ -286,8 +322,6 @@ exports.gk = async (agent) => {
         }).catch(err=>{
             console.log("error is : ",err)
         })
-
-      
         agent.add(`Congratulations you answered all 10 questions, ${score10} out of 10 was correct, 
     Your score is ${(score10 * 100) / 10}%, Do you want me to send your transcript in your email?`)
         agent.setContext({
@@ -295,8 +329,13 @@ exports.gk = async (agent) => {
             lifespan: 5,
             "parameters": {
                 "opt10": opt, i,
-                score10
+                score10,
+                "Q10":data[0].Question[i9],
+                "Q":data[0].Question[i9]
             }
         });
+    }
+    else if(usrCmd=='read this question'||usrCmd=='read this question again'){
+        agent.add(`Your question is ${ourContext.parameters.Q}`)
     }
 }
