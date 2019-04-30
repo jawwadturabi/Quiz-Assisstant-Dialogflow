@@ -16,10 +16,7 @@ exports.gk = async (agent) => {
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
         await Model1.find({}).then(data => {
-            agent.add(`${data[0].Question[i]}`)
-        }).catch(err => {
-            console.log("Error is : ", err)
-        })
+            agent.add(`${data[0].Question[i]}`) 
         agent.setContext({
             name: "abc",
             lifespan: 5,
@@ -27,6 +24,9 @@ exports.gk = async (agent) => {
                 "Q":data[0].Question[i]
             }
         });
+        }).catch(err => {
+            console.log("Error is : ", err)
+        })
     }
 
     else if ((opt||usrCmd=='read this question'||usrCmd=='read this question again') && !ourContext.parameters.opt1) {
