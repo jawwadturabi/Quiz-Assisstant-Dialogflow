@@ -5,6 +5,7 @@ exports.bio = async (agent) => {
     const name = agent.parameters['name'];
     const rollNo = agent.parameters['rollNo'];
     const quizType = agent.parameters['quiztype'];
+    const email = agent.parameters['email'];
     // var ourContext = agent.getContext("abc")
     if (!name) {
         agent.add("Kindly say your good name")
@@ -13,7 +14,7 @@ exports.bio = async (agent) => {
         agent.add("Please tell me your Roll No")
     }
     else if (!quizType) {
-        await Model.find({ Roll_No: agent.parameters.idNo }).lean().then(data => {
+        await Model.find({ Roll_No: agent.parameters.rollNo }).lean().then(data => {
             console.log("data is", data)
             if (!data[0] || agent.parameters.ask == 'no') {
                 console.log("else trig")
@@ -70,12 +71,12 @@ exports.bio = async (agent) => {
         })
     }
     else if (quizType) {
-        agent.add(`Here is the overview of your quiz.You'll be ask 10 questions one by one.
+        agent.add(`Here is the overview of your quiz. You'll be ask 10 questions one by one.
          Each question has three options to answer.Say "read the question" to listen a question and to listen again
          say "read this question again".To answer a question say "option 1 or 2" etc. You can skip any question by
          saying "skip this question".You can find your status at any time by saying "what is my status".
          You can end the quiz by saying "Finish the quiz". After completing quiz say "Review quiz" to review the questions.
-         Start the quiz by saying "start".`)
+         To start quiz say "start quiz"`)
         }
     else {
         agent.add(`The Subject of your quiz is ${quizType}.`)
@@ -85,7 +86,7 @@ exports.bio = async (agent) => {
         lifespan: 5,
         "parameters": {
             "Name": name,       //setting name and other params in context for use later in code
-            "Roll_No": idNo,
+            "Roll_No": rollNo,
             "Email": email,
             "Subject": quizType
         }
