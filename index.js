@@ -32,7 +32,7 @@ app.post("/webhook", function (request, response) {
 
     function welcome(agent) {
         agent.add(`Hi! I'm your quiz assistant.I will conduct your quiz,
-        Please tell me your name, id no and email address.`)
+        Please tell me your name and roll no.`)
         return
     }
 
