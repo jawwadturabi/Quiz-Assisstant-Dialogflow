@@ -16,20 +16,20 @@ exports.gk = async (agent) => {
         console.log("ques 1 triggered")
         console.log("context are : ", ourContext)
         await Model1.find({}).then(data => {
-            agent.add(`${data[0].Question[i]}`) 
-        agent.setContext({
-            name: "abc",
-            lifespan: 5,
-            "parameters": {
-                "Q":data[0].Question[i]
-            }
-        });
+            agent.add(`${data[0].Question[i]}`)
+            agent.setContext({
+                name: "abc",
+                lifespan: 5,
+                "parameters": {
+                    "Q": data[0].Question[i]
+                }
+            });
         }).catch(err => {
             console.log("Error is : ", err)
         })
     }
 
-    else if ((opt||usrCmd=='read this question'||usrCmd=='read this question again') && !ourContext.parameters.opt1) {
+    else if ((opt || usrCmd == 'read this question' || usrCmd == 'read this question again') && !ourContext.parameters.opt1) {
         i1 = i + increment
         console.log("ques 2 triggered")
         console.log("context are : ", ourContext)
@@ -48,8 +48,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt1": opt, i1,
                     score1,
-                    "Q1":data[0].Question[i],
-                    "Q":data[0].Question[i]
+                    "Q1": data[0].Question[i],
+                    "Q": data[0].Question[i1]
                 }
             });
         }).catch(err => {
@@ -77,8 +77,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt2": opt, i2,
                     score2,
-                    "Q2":data[0].Question[i1],
-                    "Q":data[0].Question[i1]
+                    "Q2": data[0].Question[i1],
+                    "Q": data[0].Question[i2]
                 }
             })
         }).catch(err => {
@@ -106,8 +106,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt3": opt, i3,
                     score3,
-                    "Q3":data[0].Question[i2],
-                    "Q":data[0].Question[i2]
+                    "Q3": data[0].Question[i2],
+                    "Q": data[0].Question[i3]
                 }
             })
         }).catch(err => {
@@ -135,8 +135,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt4": opt, i4,
                     score4,
-                    "Q4":data[0].Question[i3],
-                    "Q":data[0].Question[i3]
+                    "Q4": data[0].Question[i3],
+                    "Q": data[0].Question[i4]
                 }
             });
         }).catch(err => {
@@ -163,8 +163,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt5": opt, i5,
                     score5,
-                    "Q5":data[0].Question[i4],
-                    "Q":data[0].Question[i4]
+                    "Q5": data[0].Question[i4],
+                    "Q": data[0].Question[i5]
                 }
             });
         }).catch(err => {
@@ -191,8 +191,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt6": opt, i6,
                     score6,
-                    "Q6":data[0].Question[i5],
-                    "Q":data[0].Question[i5]
+                    "Q6": data[0].Question[i5],
+                    "Q": data[0].Question[i6]
                 }
             });
         }).catch(err => {
@@ -219,8 +219,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt7": opt, i7,
                     score7,
-                    "Q7":data[0].Question[i6],
-                    "Q":data[0].Question[i6]
+                    "Q7": data[0].Question[i6],
+                    "Q": data[0].Question[i7]
                 }
             });
         }).catch(err => {
@@ -247,7 +247,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt8": opt, i8,
                     score8,
-                    "Q8":data[0].Question[i7]
+                    "Q8": data[0].Question[i7],
+                    "Q": data[0].Question[i8]
                 }
             });
         }).catch(err => {
@@ -274,8 +275,8 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt9": opt, i9,
                     score9,
-                    "Q9":data[0].Question[i8],
-                    "Q":data[0].Question[i8]
+                    "Q9": data[0].Question[i8],
+                    "Q": data[0].Question[i9]
                 }
             });
         }).catch(err => {
@@ -296,9 +297,9 @@ exports.gk = async (agent) => {
             console.log("data is", data)
             if (data.filter((val) => val.Roll_No == ourContext.parameters.Roll_No).length) {
                 Model.findOneAndUpdate({ Roll_No: ourContext.parameters.Roll_No }, { Total_Score_in_GK: score10 }, (err, data) => {
-                    if(err) throw err
-                    else{
-                    console.log("Updated data is",data)
+                    if (err) throw err
+                    else {
+                        console.log("Updated data is", data)
                     }
                 })
             }
@@ -319,8 +320,8 @@ exports.gk = async (agent) => {
                     }
                 });
             }
-        }).catch(err=>{
-            console.log("error is : ",err)
+        }).catch(err => {
+            console.log("error is : ", err)
         })
         agent.add(`Congratulations you answered all 10 questions, ${score10} out of 10 was correct, 
     Your score is ${(score10 * 100) / 10}%, Do you want me to send your transcript in your email?`)
@@ -330,12 +331,11 @@ exports.gk = async (agent) => {
             "parameters": {
                 "opt10": opt, i,
                 score10,
-                "Q10":data[0].Question[i9],
-                "Q":data[0].Question[i9]
+                "Q10": data[0].Question[i9],
             }
         });
     }
-    else if(usrCmd=='read this question'||usrCmd=='read this question again'){
+    else if (usrCmd == 'read this question' || usrCmd == 'read this question again') {
         agent.add(`Your question is ${ourContext.parameters.Q}`)
     }
 }
