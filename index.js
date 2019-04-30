@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const { WebhookClient } = require('dialogflow-fulfillment');
 const app = express().use(bodyParser.json());
 var postmark = require("postmark");
-process.env.DEBUG = "dialogflow:debug"()
+process.env.DEBUG = "dialogflow:debug"
 const mongoose = require("mongoose");
 const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
 const G_K = require("./G-K")
