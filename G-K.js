@@ -44,9 +44,7 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt1": opt, i1,
                     score1
-                }
-            });
-        }).catch(err => {
+               "Q10":data[0].Question[i9] {
             console.log("Error is : ", err)
         })
     }
@@ -71,9 +69,7 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt2": opt, i2,
                     score2
-                }
-            })
-        }).catch(err => {
+               "Q10":data[0].Question[i9] {
             console.log("Error is : ", err)
         })
     }
@@ -98,9 +94,7 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt3": opt, i3,
                     score3
-                }
-            })
-        }).catch(err => {
+               "Q10":data[0].Question[i9] {
             console.log("Error is : ", err)
         })
 
@@ -125,9 +119,7 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt4": opt, i4,
                     score4
-                }
-            });
-        }).catch(err => {
+               "Q10":data[0].Question[i9] {
             console.log("Error is : ", err)
         })
     }
@@ -151,9 +143,7 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt5": opt, i5,
                     score5
-                }
-            });
-        }).catch(err => {
+               "Q10":data[0].Question[i9] {
             console.log("Error is : ", err)
         })
     }
@@ -177,9 +167,7 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt6": opt, i6,
                     score6
-                }
-            });
-        }).catch(err => {
+               "Q10":data[0].Question[i9] {
             console.log("Error is : ", err)
         })
     }
@@ -203,9 +191,7 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt7": opt, i7,
                     score7
-                }
-            });
-        }).catch(err => {
+               "Q10":data[0].Question[i9] {
             console.log("Error is : ", err)
         })
     }
@@ -229,9 +215,7 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt8": opt, i8,
                     score8
-                }
-            });
-        }).catch(err => {
+               "Q10":data[0].Question[i9] {
             console.log("Error is : ", err)
         })
     }
@@ -254,7 +238,8 @@ exports.gk = async (agent) => {
                 lifespan: 5,
                 "parameters": {
                     "opt9": opt, i9,
-                    score9
+                    score9,
+                    "Q10":data[0].Question[i9]
                 }
             });
         }).catch(err => {
