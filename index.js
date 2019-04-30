@@ -1,11 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { WebhookClient } = require('dialogflow-fulfillment');
-const { Card, Suggestion } = require("dialogflow-fulfillment");
 const app = express().use(bodyParser.json());
 var postmark = require("postmark");
-process.env.DEBUG = "dialogflow:debug"
-require("dotenv").config()
+process.env.DEBUG = "dialogflow:debug"()
 const mongoose = require("mongoose");
 const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
 const G_K = require("./G-K")
@@ -24,13 +22,12 @@ mongoose.connection.on("connected", () => {
     console.log("Connected with database");
 
 });
-
 mongoose.connection.on("disconnected", () => {
     console.log("Disconnected with database.");
     process.exit(1);
 });
 
-app.post("/webhook", function (request, response, next) {
+app.post("/webhook", function (request, response) {
     const _agent = new WebhookClient({ request, response });
 
     function welcome(agent) {
@@ -63,11 +60,14 @@ app.post("/webhook", function (request, response, next) {
         }
         return
     }
-    function questionYes(agent){
-        const email = ourContext.parameters.Email
+
+    function questionYes(agent) {
+        const email = agent.parameters['email'];
         const finalScore = ourContext.parameters.score10
         var client = new postmark.ServerClient("e6a1e031-f7f7-4ffe-81db-6b8e4f212fc0");
-
+        if (!email) {
+            agent.add("Please let me know your email address")
+        }
         client.sendEmail({
             "From": "info@abcquiz.tk",
             "To": email,
@@ -77,8 +77,6 @@ app.post("/webhook", function (request, response, next) {
         });
         agent.add(`Email is successfully sent. Thanks for giving quiz, Bye bye `);
     }
-    
-
     let intents = new Map();
     intents.set("Default Welcome Intent", welcome);
     intents.set("Start-quiz", startQuiz);

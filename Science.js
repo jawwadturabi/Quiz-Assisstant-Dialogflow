@@ -310,22 +310,4 @@ exports.science = async (agent) => {
             }
         });
     }
-
-    else if (agent.parameters.ask === 'yes' && agent.parameters.ask) {
-        const email = ourContext.parameters.Email
-        const finalScore = ourContext.parameters.score10
-        var client = new postmark.ServerClient("e6a1e031-f7f7-4ffe-81db-6b8e4f212fc0");
-
-        client.sendEmail({
-            "From": "info@abcquiz.tk",
-            "To": email,
-            "Subject": "Test",
-            "TextBody": `Congratulations you passed the quiz and answered all 10 questions, ${finalScore} out of 10 was correct, 
-        Your score is ${(finalScore * 100) / 10}%`
-        });
-        agent.add(`Email is successfully sent. Thanks for giving quiz, Bye bye `);
-    }
-    else if (agent.parameters.ask === 'no' && agent.parameters.ask) {
-        agent.add("Thanks for giving quiz, Bye bye")
-    }
 }
