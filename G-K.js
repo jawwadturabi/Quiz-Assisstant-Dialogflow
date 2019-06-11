@@ -320,20 +320,20 @@ exports.gk = async (agent) => {
                     }
                 });
             }
+            agent.add(`Congratulations you answered all 10 questions, ${score10} out of 10 was correct, 
+        Your score is ${(score10 * 100) / 10}%, Do you want me to send your transcript in your email?`)
+            agent.setContext({
+                name: "abc",
+                lifespan: 5,
+                "parameters": {
+                    "opt10": opt, i,
+                    score10,
+                    "Q10": data[0].Question[i9],
+                }
+            });
         }).catch(err => {
             console.log("error is : ", err)
         })
-        agent.add(`Congratulations you answered all 10 questions, ${score10} out of 10 was correct, 
-    Your score is ${(score10 * 100) / 10}%, Do you want me to send your transcript in your email?`)
-        agent.setContext({
-            name: "abc",
-            lifespan: 5,
-            "parameters": {
-                "opt10": opt, i,
-                score10,
-                "Q10": data[0].Question[i9],
-            }
-        });
     }
     else if (usrCmd == 'read this question' || usrCmd == 'read this question again') {
         agent.add(`Your question is ${ourContext.parameters.Q}`)
