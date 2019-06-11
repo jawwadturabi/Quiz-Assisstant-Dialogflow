@@ -328,7 +328,7 @@ exports.gk = async (agent) => {
                 "parameters": {
                     "opt10": opt, i,
                     score10,
-                    "Q10": data[0].Question[i9],
+                
                 }
             });
         }).catch(err => {
