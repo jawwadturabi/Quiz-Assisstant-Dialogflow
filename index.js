@@ -5,7 +5,7 @@ const app = express().use(bodyParser.json());
 var postmark = require("postmark");
 process.env.DEBUG = "dialogflow:debug"
 const mongoose = require("mongoose");
-const dburi = "mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true";
+const dburi = process.env.DBUri;
 const G_K = require("./G-K")
 const Science = require("./Science")
 const hist = require("./History")
